@@ -1,0 +1,104 @@
+/* poppins-100 - latin_latin-ext */
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 100;
+    src: url('./poppins-v5-latin_latin-ext-100.eot'); /* IE9 Compat Modes */
+    src: local('Poppins Thin'), local('Poppins-Thin'),
+         url('./poppins-v5-latin_latin-ext-100.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('./poppins-v5-latin_latin-ext-100.woff2') format('woff2'), /* Super Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-100.woff') format('woff'), /* Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-100.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('./poppins-v5-latin_latin-ext-100.svg#Poppins') format('svg'); /* Legacy iOS */
+  }
+  /* poppins-200 - latin_latin-ext */
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 200;
+    src: url('./poppins-v5-latin_latin-ext-200.eot'); /* IE9 Compat Modes */
+    src: local('Poppins ExtraLight'), local('Poppins-ExtraLight'),
+         url('./poppins-v5-latin_latin-ext-200.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('./poppins-v5-latin_latin-ext-200.woff2') format('woff2'), /* Super Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-200.woff') format('woff'), /* Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-200.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('./poppins-v5-latin_latin-ext-200.svg#Poppins') format('svg'); /* Legacy iOS */
+  }
+  /* poppins-300 - latin_latin-ext */
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    src: url('./poppins-v5-latin_latin-ext-300.eot'); /* IE9 Compat Modes */
+    src: local('Poppins Light'), local('Poppins-Light'),
+         url('./poppins-v5-latin_latin-ext-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('./poppins-v5-latin_latin-ext-300.woff2') format('woff2'), /* Super Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-300.woff') format('woff'), /* Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-300.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('./poppins-v5-latin_latin-ext-300.svg#Poppins') format('svg'); /* Legacy iOS */
+  }
+  /* poppins-regular - latin_latin-ext */
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./poppins-v5-latin_latin-ext-regular.eot'); /* IE9 Compat Modes */
+    src: local('Poppins Regular'), local('Poppins-Regular'),
+         url('./poppins-v5-latin_latin-ext-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('./poppins-v5-latin_latin-ext-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-regular.woff') format('woff'), /* Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('./poppins-v5-latin_latin-ext-regular.svg#Poppins') format('svg'); /* Legacy iOS */
+  }
+  /* poppins-500 - latin_latin-ext */
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    src: url('./poppins-v5-latin_latin-ext-500.eot'); /* IE9 Compat Modes */
+    src: local('Poppins Medium'), local('Poppins-Medium'),
+         url('./poppins-v5-latin_latin-ext-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('./poppins-v5-latin_latin-ext-500.woff2') format('woff2'), /* Super Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-500.woff') format('woff'), /* Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-500.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('./poppins-v5-latin_latin-ext-500.svg#Poppins') format('svg'); /* Legacy iOS */
+  }
+  /* poppins-600 - latin_latin-ext */
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    src: url('./poppins-v5-latin_latin-ext-600.eot'); /* IE9 Compat Modes */
+    src: local('Poppins SemiBold'), local('Poppins-SemiBold'),
+         url('./poppins-v5-latin_latin-ext-600.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('./poppins-v5-latin_latin-ext-600.woff2') format('woff2'), /* Super Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-600.woff') format('woff'), /* Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-600.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('./poppins-v5-latin_latin-ext-600.svg#Poppins') format('svg'); /* Legacy iOS */
+  }
+  /* poppins-700 - latin_latin-ext */
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    src: url('./poppins-v5-latin_latin-ext-700.eot'); /* IE9 Compat Modes */
+    src: local('Poppins Bold'), local('Poppins-Bold'),
+         url('./poppins-v5-latin_latin-ext-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('./poppins-v5-latin_latin-ext-700.woff2') format('woff2'), /* Super Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-700.woff') format('woff'), /* Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-700.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('./poppins-v5-latin_latin-ext-700.svg#Poppins') format('svg'); /* Legacy iOS */
+  }
+  /* poppins-800 - latin_latin-ext */
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    src: url('./poppins-v5-latin_latin-ext-800.eot'); /* IE9 Compat Modes */
+    src: local('Poppins ExtraBold'), local('Poppins-ExtraBold'),
+         url('./poppins-v5-latin_latin-ext-800.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('./poppins-v5-latin_latin-ext-800.woff2') format('woff2'), /* Super Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-800.woff') format('woff'), /* Modern Browsers */
+         url('./poppins-v5-latin_latin-ext-800.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('./poppins-v5-latin_latin-ext-800.svg#Poppins') format('svg'); /* Legacy iOS */
+  }
