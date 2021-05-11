@@ -24,7 +24,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles/app.css",
+              "src/styles/bootstrap.css",
+              "src/styles/vendor.css"
             ],
             "scripts": []
           },
@@ -119,6 +121,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "b2b-frontend"
+    }
+  },
+  "defaultProject": "b2b-frontend",
+  "cli": {
+    "analytics": false
+  }
 }

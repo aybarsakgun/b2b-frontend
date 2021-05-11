@@ -1,0 +1,110 @@
+<!--<div class="top-bar d-none d-md-block">-->
+<!--  <span class="font-weight-500">Temsilciniz:</span>-->
+<!--  <span class="pl-2"><i class="ion-ios-person"></i> {{ topHeaderInfo?.salesRepresentativeName }}</span>-->
+<!--  <span class="pl-2"><i class="ion-ios-telephone"></i> {{ topHeaderInfo?.salesRepresentativePhone }}</span>-->
+<!--  <span class="pl-2"><i class="ion-android-mail"></i> {{ topHeaderInfo?.salesRepresentativeEmail }}</span>-->
+<!--  <span class="px-2">|</span>-->
+<!--  <div class="customer-info d-inline-flex">-->
+<!--    <span class="three-dots w-50" title="{{ topHeaderInfo?.customerName }}">{{ topHeaderInfo?.customerName }}</span>-->
+<!--    <span>{{ topHeaderInfo?.customerBalance }} {{ topHeaderInfo?.customerCurrency }}</span>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="main-header">
+  <div class="row m-0 py-3 px-md-0">
+    <div class="col-md-3 col-sm-3 col-xs-3 p-0 brand">
+      <a routerLink="/">
+        <img src="assets/images/logo/logo.png">
+      </a>
+    </div>
+    <div class="col-md-9 col-sm-9 col-xs-9 responsive-header">
+      <div class="row">
+        <div class="col-md-9 col-sm-12 p-0 pr-md-3 pt-2 pt-md-0">
+
+          <div class="search">
+            <input type="text" name="q" class="form-control search-input"
+                   placeholder="Ara">
+            <select name="category">
+              <option value="all">Tümü</option>
+            </select>
+            <button class="btn" type="submit">
+              <i class="flaticon-search-2"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-12 p-0">
+          <div class="menu-toggle d-md-none" id="toggleMenu">
+            <span></span>
+            <span></span>
+            <span class="m-0"></span>
+          </div>
+          <div class="header-right">
+            <div class="dropdown">
+              <a href="" class="dropdown-toggle">
+                <i class="flaticon-user-line"></i>
+                <span class="d-lg-block">Giriş Yap</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--{% macro recursiveCategory(category, withUri) %}-->
+<!--<li class="{{ category.children|length ? 'flyout-right' }}">-->
+<!--  <a-->
+<!--    href="{{ withUri ? url('catalog_category', {'url': category.seo ~ '-c-' ~ category.id }) : '#' }}">{{ category.name }}</a>-->
+
+<!--  {% if category.children|length %}-->
+<!--  <ul class="animated fadeIn">-->
+<!--    {% for child in category.children %}-->
+<!--    {{ _self.recursiveCategory(child, true) }}-->
+<!--    {% endfor %}-->
+<!--  </ul>-->
+<!--  {% endif %}-->
+<!--</li>-->
+<!--{% endmacro %}-->
+
+<div class="row m-0">
+  <div class="mega-menu-container hidden-sm-down">
+    <ul class="mega-menu">
+      <li class="drop-down">
+        <a href="#"><i class="flaticon-menu pr-1"></i> Kategoriler</a>
+      </li>
+      <li><a routerLink="product/list"><i class="ion-android-search"></i> Fiyat Listesi</a></li>
+      <li><a href=""><i class="ion-ios-cart"></i> Sepet</a></li>
+      <li><a href=""><i class="ion-clipboard"></i> Siparişler</a></li>
+      <li><a href=""><i class="ion-ios-briefcase"></i> Hesap Ekstresi</a></li>
+      <li><a href=""><i class="ion-card"></i> Ödeme</a></li>
+      <div class="slidingVertical d-lg-block d-none">
+<!--        {% for cr in currency.currencies %}-->
+<!--        {% if cr.exchangeRate > 1 %}-->
+<!--        <span>{{ cr.symbol }} {{ cr.exchangeRate | number_format(4) }}</span>-->
+<!--        {% endif %}-->
+<!--        {% endfor %}-->
+      </div>
+    </ul>
+  </div>
+  <!--Mobile Menu-->
+  <div class="accordion" id="accordionExample" role="tablist" aria-multiselectable="true">
+    <ul class="wt-mobile-menu menu-items">
+      <li><a href=""><i class="ion-android-search"></i> Fiyat Listesi</a></li>
+      <li><a href=""><i class="ion-ios-cart"></i> Sepet</a></li>
+      <li><a href=""><i class="ion-clipboard"></i> Siparişler</a></li>
+      <li><a href=""><i class="ion-ios-briefcase"></i> Hesap Ekstresi</a></li>
+      <li><a href=""><i class="ion-card"></i> Ödeme</a></li>
+<!--      {% if topHeaderInfo.customerName != null %}-->
+<!--      <li style="position: absolute; bottom: 30px;">{{ topHeaderInfo.customerName }}</li>-->
+<!--      {% endif %}-->
+<!--      {% if topHeaderInfo.customerBalance != null %}-->
+<!--      <li style="position: absolute; bottom: 5px;">Bakiye: <span-->
+<!--        class="text-danger">{{ topHeaderInfo.customerBalance | number_format(2, '.', ',') }} {{ topHeaderInfo.customerCurrency }}</span>-->
+<!--      </li>-->
+<!--      {% endif %}-->
+    </ul>
+  </div>
+  <!--Mobile Menu-->
+</div>
