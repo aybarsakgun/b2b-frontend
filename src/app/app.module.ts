@@ -1,34 +1,40 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
-import {StoreModule} from '@ngrx/store';
-import {EffectsModule} from '@ngrx/effects';
-import {GraphQLModule} from './graphql.module';
-import {HttpClientModule} from '@angular/common/http';
 import {HeaderComponent} from './layouts/main/header/header.component';
 import {FooterComponent} from './layouts/main/footer/footer.component';
-import {HomeComponent} from './components/home/home.component';
 import {AppRoutingModule} from './app-routing.module';
-import {ProductListEffects} from './store/effects/product-list.effects';
-import {AppReducers} from './store';
-import {ProductService} from './modules/product/product.service';
+import {NgxsModule} from '@ngxs/store';
+import {MainComponent} from './layouts/main/main.component';
+import {AuthComponent} from './layouts/auth/auth.component';
+import {NotFoundComponent} from './layouts/not-found/not-found.component';
+import {AuthState} from './store/states/auth/auth.state';
+import {GraphQLModule} from './graphql/graphql.module';
+import {AuthService} from './modules/auth/auth.service';
+import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AuthComponent,
+    MainComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot(AppReducers, {}),
-    EffectsModule.forRoot([ProductListEffects]),
     GraphQLModule,
-    HttpClientModule,
+    NgxsModule.forRoot([AuthState], {
+      developmentMode: !environment.production
+    }),
+    NgxsReduxDevtoolsPluginModule.forRoot({
+      disabled: environment.production
+    }),
     AppRoutingModule
   ],
-  providers: [ProductService],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
