@@ -1,4 +1,5 @@
-// tslint:disable-next-line:no-namespace
+import {UserModel} from '../../../models/user/user.model';
+
 export namespace Auth {
   export class Login {
     static readonly type = '[Auth] Login';
@@ -17,7 +18,7 @@ export namespace Auth {
     static readonly type = '[Auth API] Login Success';
     constructor(public payload: {
       accessToken: string;
-      user: any;
+      user: UserModel;
     }) {}
   }
 

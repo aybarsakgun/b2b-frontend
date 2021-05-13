@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Select, Store} from '@ngxs/store';
 import {Auth} from '../../../../store/actions/auth/auth.action';
-import Login = Auth.Login;
 import {AuthState} from '../../../../store/states/auth/auth.state';
 import {Observable} from 'rxjs';
+import Login = Auth.Login;
 
 @Component({
   selector: 'app-login',
@@ -31,10 +31,6 @@ export class LoginComponent {
       this.form.markAllAsTouched();
       return;
     }
-    const {username, password} = this.form.getRawValue();
-    this.store.dispatch(new Login({
-      username,
-      password
-    }));
+    this.store.dispatch(new Login(this.form.getRawValue()));
   }
 }

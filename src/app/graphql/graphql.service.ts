@@ -1,7 +1,8 @@
-import {Apollo, gql} from 'apollo-angular';
-import {Observable, Subscription, throwError} from 'rxjs';
+import {Apollo} from 'apollo-angular';
+import {Observable, of, throwError} from 'rxjs';
 import {DocumentNode} from 'graphql';
-import {catchError, first, map, take} from 'rxjs/operators';
+import {switchMap, take} from 'rxjs/operators';
+import {ErrorResult} from './results/error.result';
 
 export abstract class GraphQLService {
 
@@ -10,69 +11,48 @@ export abstract class GraphQLService {
   ) {
   }
 
-  protected async query(query: DocumentNode, variables: any = null): Promise<any> {
-    const queryOptions: any = {query: gql`${ query }`, ...variables && {variables}};
-    return new Promise((resolve: (data) => void, reject: (data) => void) => {
-      const subscription: Subscription = this.apollo.watchQuery<any>(queryOptions)
-        .valueChanges.subscribe(({data, errors}) => {
-          if (errors) {
-            reject(errors.map(error => error.message).join(', ')); // TODO: GRAPHQL ERRORS
-          } else {
-            resolve(data);
-          }
-        }, (error: Error) => { // TODO: NETWORK ERRORS
-          reject(error.message);
-        }, () => {
-          subscription.unsubscribe();
+  protected execute<T>(type: 'query' | 'mutation' | 'subscription', documentNode: DocumentNode, variables: any = null, options?: {
+    responseKey?: string;
+  }): Observable<T> {
+    let gqlOperation;
+    switch (type) {
+      case 'query':
+        gqlOperation = this.apollo.watchQuery<T>({
+          query: documentNode,
+          ...variables && {variables}
+        }).valueChanges;
+        break;
+      case 'mutation':
+        gqlOperation = this.apollo.mutate<T>({
+          mutation: documentNode,
+          ...variables && {variables}
         });
-    });
-  }
-
-  // protected async mutation(mutation: DocumentNode, variables: any = null): Promise<any> {
-  //   const mutationOptions: any = {mutation: gql`${ mutation }`, ...variables && {variables}};
-  //   return new Promise((resolve: (data) => void, reject: (data) => void) => {
-  //     const subscription: Subscription = this.apollo.mutate(mutationOptions)
-  //       .subscribe(({data, errors}) => {
-  //         if (errors) {
-  //           reject(errors.map(error => error.message).join(', ')); // TODO: GRAPHQL ERRORS
-  //         } else {
-  //           resolve(data);
-  //         }
-  //       }, (error: Error) => { // TODO: NETWORK ERRORS
-  //         reject(error.message);
-  //       }, () => {
-  //         subscription.unsubscribe();
-  //       });
-  //   });
-  // }
-
-  protected mutation(mutation: DocumentNode, variables: any = null): Observable<any> {
-    const mutationOptions: any = {
-      mutation: gql`${ mutation }`,
-      ...variables && {variables}
-    };
-    const gqlMutation = this.apollo.mutate(mutationOptions).pipe(
-      first(),
-      map(({data, errors}) => {
-        if (errors) {
-          return throwError(errors);
-        }
-        return data;
-      }),
-      catchError((error) => throwError(error))
-    );
+        break;
+      case 'subscription':
+        gqlOperation = this.apollo.subscribe<T>({
+          query: documentNode,
+          ...variables && {variables}
+        });
+        break;
+    }
     return new Observable((observer) => {
-      gqlMutation.pipe(take(1)).subscribe((result) => {
-        // if (result) {
-          observer.next(result);
-          observer.complete();
-        // } else {
-        //   observer.error('GraphQL Error');
-        //   observer.complete();
-        // }
-      }, (error: Error) => {
-        // console.warn(error);
-        observer.error(error.message);
+      gqlOperation.pipe(
+        take(1),
+        switchMap(({data, errors}) => {
+          if (errors) {
+            return throwError(errors.map((error) => ({
+              message: error.message,
+              type: error.extensions.code,
+              code: error.extensions.exception.status
+            })));
+          }
+          return of(options?.responseKey ? data[options.responseKey] : data);
+        }),
+      ).subscribe((result: T) => {
+        observer.next(result);
+        observer.complete();
+      }, (error) => {
+        observer.error(error);
         observer.complete();
       }, () => {
         observer.complete();
@@ -80,8 +60,18 @@ export abstract class GraphQLService {
     });
   }
 
-  protected subscription(subscription: DocumentNode, variables: any = null): Observable<any> {
-    const subscriptionOptions: any = {query: gql`${ subscription }`, ...variables && {variables}};
-    return this.apollo.subscribe(subscriptionOptions);
+  public subscriber<T>(
+    observable: Observable<T>,
+    onNext: (data: T) => void,
+    onError: (data: ErrorResult) => void,
+    onComplete: () => void
+  ): Observable<T> | void {
+    observable.pipe(take(1)).subscribe((data) => {
+      return onNext(data);
+    }, (error: ErrorResult) => {
+      return onError(error);
+    }, () => {
+      return onComplete();
+    });
   }
 }

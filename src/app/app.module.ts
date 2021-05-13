@@ -12,6 +12,7 @@ import {AuthState} from './store/states/auth/auth.state';
 import {GraphQLModule} from './graphql/graphql.module';
 import {AuthService} from './modules/auth/auth.service';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import {NgxsRouterPluginModule} from '@ngxs/router-plugin';
 import {environment} from '../environments/environment';
 
 @NgModule({
@@ -32,6 +33,7 @@ import {environment} from '../environments/environment';
     NgxsReduxDevtoolsPluginModule.forRoot({
       disabled: environment.production
     }),
+    NgxsRouterPluginModule.forRoot(),
     AppRoutingModule
   ],
   providers: [AuthService],

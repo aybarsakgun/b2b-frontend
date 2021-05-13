@@ -5,3 +5,5 @@ export const WS_API_URL = `${ WS_BASE_URL }/api`;
 
 export const GRAPHQL_URL = `${ BASE_URL }/graphql`;
 export const WS_GRAPHQL_URL = `${ WS_BASE_URL }/graphql`;
+
+export const JWT_TOKEN_NAME = 'b2bJWTToken';
