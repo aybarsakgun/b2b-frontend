@@ -11,11 +11,12 @@
 
       </div>
       <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
-        <h3>Bize Ulaşın</h3>
-        <p>Adres: {{ store?.address }}</p>
-        <p>Telefon: {{ store?.phone }}</p>
-        <p>Email: <a href="mailto:{{ store?.email }}">{{ store?.email }}</a></p>
-        <p><a href="">Bayilik Formu</a></p>
+        <h3>{{ 'MAIN.CONTACT_US' | translate }}</h3>
+        <p>{{ 'MAIN.ADDRESS' | translate }}: {{ shop?.address }}</p>
+        <p>{{ 'MAIN.PHONE' | translate }}: {{ shop?.phone }}</p>
+        <p>{{ 'MAIN.EMAIL' | translate }}: <a href="mailto:{{ shop?.email }}">{{ shop?.email }}</a></p>
+        <p><a>{{ 'MAIN.DEALERSHIP_FORM' | translate }}</a></p>
+<!--        {{ store?.description | htmlContentPipe }}-->
       </div>
     </div>
   </div>
@@ -24,8 +25,7 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-sm-6">
-        <p class="text-center text-sm-left mb-2 mb-sm-0">&copy; 2021 {{ store?.name }}. Tüm hakları
-          saklıdır. Powered by <a href="https://www.webticari.com.tr/" target="_blank">Webticari</a></p>
+        <p class="text-center text-sm-left mb-2 mb-sm-0">&copy; {{ currentYear }} {{ shop?.name }}. {{ 'MAIN.ALL_RIGHTS_RESERVED' | translate }}</p>
       </div>
       <div class="col-sm-6">
         <div class="d-flex justify-content-center justify-content-sm-end">

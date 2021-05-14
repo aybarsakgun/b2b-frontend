@@ -5,17 +5,17 @@ import {HttpLink} from 'apollo-angular/http';
 import {ApolloClientOptions, ApolloLink, InMemoryCache} from '@apollo/client/core';
 import {setContext} from '@apollo/client/link/context';
 import {GRAPHQL_URL} from '../constants';
-import {onError} from '@apollo/client/link/error';
 import {Store} from '@ngxs/store';
+import {onError} from '@apollo/client/link/error';
 
 export function createApollo(httpLink: HttpLink, store: Store): ApolloClientOptions<any> {
-  const basic = setContext((operation, context) => ({
+  const basic = setContext(() => ({
     headers: {
       Accept: 'charset=utf-8'
     }
   }));
 
-  const auth = setContext((operation, context) => {
+  const auth = setContext(() => {
     const token = store.selectSnapshot<string>((state => state.auth.accessToken));
     if (token === null) {
       return {};
@@ -52,16 +52,20 @@ export function createApollo(httpLink: HttpLink, store: Store): ApolloClientOpti
   return {
     link,
     cache,
-    // defaultOptions: {
-    //   watchQuery: {
-    //     fetchPolicy: 'network-only',
-    //     errorPolicy: 'all',
-    //   },
-    //   query: {
-    //     fetchPolicy: 'network-only',
-    //     errorPolicy: 'all',
-    //   }
-    // }
+    defaultOptions: {
+      mutate: {
+        fetchPolicy: 'no-cache',
+        errorPolicy: 'all'
+      },
+      watchQuery: {
+        fetchPolicy: 'network-only',
+        errorPolicy: 'all'
+      },
+      query: {
+        fetchPolicy: 'network-only',
+        errorPolicy: 'all'
+      }
+    }
   };
 }
 

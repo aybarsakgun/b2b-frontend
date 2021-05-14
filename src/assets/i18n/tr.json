@@ -1,0 +1,32 @@
+{
+  "MAIN": {
+    "TURKISH": "Türkçe",
+    "ENGLISH": "İngilizce",
+    "ALL_RIGHTS_RESERVED": "Tüm hakları saklıdır.",
+    "CONTACT_US": "Bize ulaşın",
+    "ADDRESS": "Adres",
+    "PHONE": "Telefon",
+    "EMAIL": "E-Posta",
+    "DEALERSHIP_FORM": "Bayilik Formu",
+    "SEARCH": "Ara",
+    "ALL": "Tümü",
+    "MY_ACCOUNT": "Hesabım",
+    "ORDERS": "Siparişler",
+    "ACCOUNT_STATEMENT": "Hesap Ekstresi",
+    "PAYMENT": "Ödeme",
+    "ACCOUNT_SETTINGS": "Hesap Ayarları",
+    "LOGOUT": "Çıkış Yap",
+    "LOGIN": "Giriş Yap",
+    "CATEGORIES": "Kategoriler",
+    "PRICE_LIST": "Fiyat Listesi",
+    "CART": "Sepet",
+    "PAGE_NOT_FOUND": "Sayfa bulunamadı",
+    "RETURN_TO_HOMEPAGE": "Anasayfaya dön",
+    "USERNAME": "Kullanıcı Adı",
+    "PASSWORD": "Şifre",
+    "REMEMBER_ME": "Beni hatırla",
+    "FORGOT_PASSWORD": "Şifremi unuttum",
+    "LOGGING_IN": "Giriş yapılıyor...",
+    "REGISTER": "Kayıt Ol"
+  }
+}

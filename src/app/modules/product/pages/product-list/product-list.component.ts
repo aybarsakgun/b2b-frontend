@@ -1,19 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ProductService} from '../../product.service';
+import {Observable} from 'rxjs';
+import {ProductResults} from '../../../../graphql/results/product/product.results';
 
 @Component({
   selector: 'app-product-list',
-  templateUrl: './product-list.component.html'
+  templateUrl: './product-list.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent {
+  productList$: Observable<ProductResults.ProductListResult> = null;
+
   constructor(
     private productService: ProductService
   ) {
-
-  }
-
-  async ngOnInit(): Promise<any> {
-    const products = await this.productService.getProducts();
-    console.log(products);
+    this.productList$ = this.productService.productList({
+      page: 1,
+      limit: 20
+    });
   }
 }

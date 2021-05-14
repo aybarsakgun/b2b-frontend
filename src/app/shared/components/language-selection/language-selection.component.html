@@ -1,0 +1,12 @@
+<div class="lang-button btn-group" (clickOutside)="languageSelectionPanelVisibility && toggleLanguageSelectionPanelVisibility()">
+  <button type="button" id="dropdownMenuButton" class="btn btn-link dropdown-toggle" (click)="toggleLanguageSelectionPanelVisibility()">
+    <img src="assets/images/svg/{{ activeLanguage }}.svg" width="18px" class="mr-1">{{ ('MAIN.' + languageTranslationKeys[activeLanguage])  | translate }}
+  </button>
+  <div class="dropdown-menu dropdown-menu-right d-block" *ngIf="languageSelectionPanelVisibility">
+    <button class="dropdown-item" type="button" *ngFor="let language of languageList" (click)="changeLanguage(language)">
+      <img src="assets/images/svg/{{ language }}.svg"
+           width="30px"
+           class="pr-2">{{ ('MAIN.' + languageTranslationKeys[language]) | translate }}
+    </button>
+  </div>
+</div>

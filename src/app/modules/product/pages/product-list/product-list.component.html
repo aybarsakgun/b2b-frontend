@@ -1,1 +1,17 @@
 <h1>Product list component</h1>
+<ng-container *ngIf="(productList$ | async) as productListResult else loading">
+  <h4>
+    Product list fetched:
+    <br>
+    Products count: {{ productListResult.products?.items?.length }}
+    <br>
+    Categories count: {{ productListResult.categories?.length }}
+    <br>
+    Brands count: {{ productListResult.brands?.length }}
+    <br>
+    Models count: {{ productListResult.models?.length }}
+  </h4>
+</ng-container>
+<ng-template #loading>
+  <h4>LOADING</h4>
+</ng-template>

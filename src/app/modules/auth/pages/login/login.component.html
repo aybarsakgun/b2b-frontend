@@ -5,6 +5,7 @@
         <a routerLink="/">
           <img src="assets/images/logo/logo.png" width="150px">
         </a>
+        <app-language-selection></app-language-selection>
       </div>
     </div>
   </div>
@@ -13,20 +14,25 @@
   <div class="container">
     <div class="row mb-4">
       <div class="col-md-4 col-sm-6 col-xs-12 login-container">
-        <div class="alert alert-danger mb-3 align-items-center">
+        <ng-container *ngIf="(errors$ | async) as errors">
+        <div class="alert alert-danger mb-3 align-items-center" *ngIf="errors.length">
           <img src="assets/images/svg/alert.svg" width="30px" class="mr-3"/>
-          Hata mesajı
+          <ng-container *ngFor="let error of errors; let isLast = last;">
+            {{ error }}
+            <ng-container *ngIf="!isLast"><br></ng-container>
+          </ng-container>
         </div>
-        <div class="login-box" [formGroup]="form">
+        </ng-container>
+        <form class="login-box" [formGroup]="form" (keydown.enter)="login()">
           <div class="floating-inputs mb-4">
-            <div class="floating-placeholder has-icon">
+            <div class="floating-placeholder has-icon" [class.floating-placeholder-float]="form.get('username').value">
               <img src="assets/images/svg/avatar.svg" width="30px" class="icon">
-              <label>Kullanıcı adınız *</label>
+              <label>{{ 'MAIN.USERNAME' | translate }} *</label>
               <input type="text" formControlName="username"/>
             </div>
-            <div class="floating-placeholder has-icon">
+            <div class="floating-placeholder has-icon" [class.floating-placeholder-float]="form.get('password').value">
               <img src="assets/images/svg/padlock.svg" class="icon" width="30px">
-              <label>Şifreniz *</label>
+              <label>{{ 'MAIN.PASSWORD' | translate }} *</label>
               <input type="password" formControlName="password" class="pr-5">
               <svg version="1.1" class="eye" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
                 <g>
@@ -43,23 +49,22 @@
           <div class="d-flex justify-content-between px-3 mb-4">
             <label class="b2b-checkbox mb-0">
               <input type="checkbox">
-              <span></span>Beni Hatırla
+              <span></span>{{ 'MAIN.REMEMBER_ME' | translate }}
             </label>
-            <a href="">Şifremi Unuttum</a>
+            <a href="">{{ 'MAIN.FORGOT_PASSWORD' | translate }}</a>
           </div>
           <button class="btn btn-login btn-primary mb-3" (click)="login()">
             <ng-container *ngIf="isLoading$ | async else normal">
-              Giriş Yapılıyor
+              {{ 'MAIN.LOGGING_IN' | translate }}
             </ng-container>
-            <ng-template #normal>Giriş Yap</ng-template>
+            <ng-template #normal>{{ 'MAIN.LOGIN' | translate }}</ng-template>
           </button>
-          <a href="" class="btn btn-register">Kayıt Ol</a>
-        </div>
+          <a href="" class="btn btn-register">{{ 'MAIN.REGISTER' | translate }}</a>
+        </form>
       </div>
     </div>
   </div>
   <div class="login-footer">
-    <p>&copy; 2021 store.name. Tüm hakları
-      saklıdır. Powered by <a href="https://www.webticari.com.tr/" target="_blank">Webticari</a></p>
+    <p>&copy; {{ currentYear }} {{ shop?.name }}. {{ 'MAIN.ALL_RIGHTS_RESERVED' | translate }}</p>
   </div>
 </main>
