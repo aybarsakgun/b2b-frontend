@@ -10,10 +10,18 @@ import {AuthComponent} from './layouts/auth/auth.component';
 import {NotFoundComponent} from './layouts/not-found/not-found.component';
 import {AuthState} from './store/states/auth/auth.state';
 import {GraphQLModule} from './graphql/graphql.module';
-import {AuthService} from './modules/auth/auth.service';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 import {NgxsRouterPluginModule} from '@ngxs/router-plugin';
 import {environment} from '../environments/environment';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClient} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {SharedModule} from './shared/shared.module';
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -25,7 +33,10 @@ import {environment} from '../environments/environment';
     NotFoundComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
+    BrowserAnimationsModule,
+    SharedModule,
     GraphQLModule,
     NgxsModule.forRoot([AuthState], {
       developmentMode: !environment.production
@@ -34,9 +45,14 @@ import {environment} from '../environments/environment';
       disabled: environment.production
     }),
     NgxsRouterPluginModule.forRoot(),
-    AppRoutingModule
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    })
   ],
-  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

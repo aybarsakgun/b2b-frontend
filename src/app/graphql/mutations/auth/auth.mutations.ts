@@ -1,30 +1,13 @@
 import {gql} from '@apollo/client/core';
+import {userFragment} from '../../fragments/user/user.fragments';
 
 export const AUTH_LOGIN_MUTATION = gql`
+  ${userFragment}
   mutation login($loginInput: LoginInput!){
     login(data: $loginInput){
       token
       user{
-        id
-        username
-        email
-        currency
-        name
-        customerId
-        role
-        isActive
-        branches{
-          id
-          name
-        }
-        salesRepresentative{
-          id
-          name
-          phone
-          email
-        }
-        priceOrder
-        branch
+        ...userFragment
       }
     }
   }

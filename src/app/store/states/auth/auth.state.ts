@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Action, Selector, State, StateContext, StateToken} from '@ngxs/store';
+import {Action, Selector, State, StateContext, StateToken, Store} from '@ngxs/store';
 import {Auth} from '../../actions/auth/auth.action';
 import {AuthService} from '../../../modules/auth/auth.service';
 import {catchError, take, tap} from 'rxjs/operators';
@@ -8,11 +8,7 @@ import {UserModel} from '../../../models/user/user.model';
 import {ErrorResult} from '../../../graphql/results/error.result';
 import {JWT_TOKEN_NAME} from '../../../constants';
 import {AuthResults} from '../../../graphql/results/auth/auth.results';
-import {Navigate} from '@ngxs/router-plugin';
-import Login = Auth.Login;
-import LoginFailed = Auth.LoginFailed;
-import LoginSuccess = Auth.LoginSuccess;
-import Logout = Auth.Logout;
+import {Navigate, RouterState} from '@ngxs/router-plugin';
 
 export interface AuthStateModel {
   accessToken: string;
@@ -44,13 +40,19 @@ export class AuthState {
     return state.accessToken && state.user && !state.errors.length;
   }
 
+  @Selector()
+  static errors(state: AuthStateModel): string[] {
+    return state.errors;
+  }
+
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private store: Store
   ) {
   }
 
-  @Action(Login)
-  login({patchState, dispatch}: StateContext<AuthStateModel>, {payload}: Login): Observable<AuthResults.LoginResult> {
+  @Action(Auth.Login)
+  login({patchState, dispatch}: StateContext<AuthStateModel>, {payload}: Auth.Login): Observable<AuthResults.LoginResult> {
     patchState({
       loading: true
     });
@@ -69,8 +71,8 @@ export class AuthState {
     );
   }
 
-  @Action(LoginFailed)
-  loginFailed({setState}: StateContext<AuthStateModel>, {errors}: LoginFailed): void {
+  @Action(Auth.LoginFailed)
+  loginFailed({setState}: StateContext<AuthStateModel>, {errors}: Auth.LoginFailed): void {
     localStorage.removeItem(JWT_TOKEN_NAME);
     setState({
       accessToken: null,
@@ -80,8 +82,8 @@ export class AuthState {
     });
   }
 
-  @Action(LoginSuccess)
-  loginSuccess({setState, dispatch}: StateContext<AuthStateModel>, {payload}: LoginSuccess): void {
+  @Action(Auth.LoginSuccess)
+  loginSuccess({setState, dispatch}: StateContext<AuthStateModel>, {payload}: Auth.LoginSuccess): void {
     localStorage.setItem(JWT_TOKEN_NAME, payload.accessToken);
     setState({
       accessToken: payload.accessToken,
@@ -92,7 +94,7 @@ export class AuthState {
     dispatch(new Navigate(['/']));
   }
 
-  @Action(Logout)
+  @Action(Auth.Logout)
   logout({setState, dispatch}: StateContext<AuthStateModel>): void {
     localStorage.removeItem(JWT_TOKEN_NAME);
     setState({
@@ -101,6 +103,27 @@ export class AuthState {
       loading: false,
       errors: []
     });
-    dispatch(new Navigate(['/']));
+    dispatch(new Navigate([this.store.selectSnapshot(RouterState.url)]));
+  }
+
+  @Action(Auth.CurrentUser)
+  currentUser({dispatch, patchState}: StateContext<AuthStateModel>): Observable<AuthResults.CurrentUserResult> {
+    patchState({
+      loading: true
+    });
+    return this.authService.currentUser().pipe(
+      take(1),
+      tap((result) => {
+        patchState({
+          user: result,
+          loading: false,
+          errors: []
+        });
+      }),
+      catchError((error: ErrorResult) => {
+        dispatch(new Auth.LoginFailed(error.map((err) => (err.message))));
+        return throwError(error);
+      })
+    );
   }
 }

@@ -11,9 +11,6 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    // canActivate: [
-    //   PublicGuard
-    // ],
     runGuardsAndResolvers: 'always'
   }
 ];

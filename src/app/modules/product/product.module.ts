@@ -1,18 +1,16 @@
-import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {ReactiveFormsModule} from '@angular/forms';
 import {ProductListComponent} from './pages/product-list/product-list.component';
 import {ProductRoutingModule} from './product-routing.module';
 import {ProductService} from './product.service';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
     ProductListComponent
   ],
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ProductRoutingModule
+    ProductRoutingModule,
+    SharedModule
   ],
   providers: [ProductService]
 })

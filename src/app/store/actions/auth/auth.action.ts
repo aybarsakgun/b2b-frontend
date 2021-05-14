@@ -25,4 +25,8 @@ export namespace Auth {
   export class Logout {
     static readonly type = '[Auth] Logout';
   }
+
+  export class CurrentUser {
+    static readonly type = '[Auth] CurrentUser';
+  }
 }

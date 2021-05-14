@@ -5,4 +5,5 @@ export namespace AuthResults {
     token: string;
     user: UserModel;
   }
+  export class CurrentUserResult extends UserModel {}
 }

@@ -1,0 +1,32 @@
+{
+  "MAIN": {
+    "TURKISH": "Turkish",
+    "ENGLISH": "English",
+    "ALL_RIGHTS_RESERVED": "All rights reserved.",
+    "CONTACT_US": "Contact us",
+    "ADDRESS": "Address",
+    "PHONE": "Phone",
+    "EMAIL": "E-Mail",
+    "DEALERSHIP_FORM": "Dealership Form",
+    "SEARCH": "Search",
+    "ALL": "All",
+    "MY_ACCOUNT": "My Account",
+    "ORDERS": "Orders",
+    "ACCOUNT_STATEMENT": "Account Statement",
+    "PAYMENT": "Payment",
+    "ACCOUNT_SETTINGS": "Account Settings",
+    "LOGOUT": "Logout",
+    "LOGIN": "Login",
+    "CATEGORIES": "Categories",
+    "PRICE_LIST": "Price List",
+    "CART": "Cart",
+    "PAGE_NOT_FOUND": "Page not found",
+    "RETURN_TO_HOMEPAGE": "Return to homepage",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "REMEMBER_ME": "Remember me",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "LOGGING_IN": "Logging in...",
+    "REGISTER": "Register"
+  }
+}
