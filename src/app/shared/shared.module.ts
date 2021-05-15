@@ -4,6 +4,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {LanguageSelectionComponent} from './components/language-selection/language-selection.component';
 import {ClickOutsideDirective} from './directives/click-outside.directive';
+import {PaginationComponent} from './components/pagination/pagination.component';
 
 @NgModule({
   imports: [
@@ -13,14 +14,16 @@ import {ClickOutsideDirective} from './directives/click-outside.directive';
   ],
   declarations: [
     LanguageSelectionComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    PaginationComponent
   ],
   exports: [
     CommonModule,
     ReactiveFormsModule,
     TranslateModule,
     LanguageSelectionComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    PaginationComponent
   ]
 })
 export class SharedModule {
