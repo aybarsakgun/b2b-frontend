@@ -73,6 +73,7 @@ export class ProductListComponent implements OnInit {
 
   setBrands(): void {
     this.brands = {};
+    this.catalogFilterOptions.brands = this.catalogFilterOptions.brands.filter(brand => this.productListResult.brands.some(_brand => +_brand.id === brand));
     this.productListResult.brands.forEach((brand) => {
       this.brands[brand.id] = this.catalogFilterOptions.brands.includes(+brand.id) || false;
     });

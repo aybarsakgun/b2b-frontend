@@ -30,5 +30,11 @@
     "REGISTER": "Kayıt Ol",
     "BRAND": "Marka",
     "PRICE_RANGE": "Fiyat Aralığı"
+  },
+  "AUTH": {
+    "INVALID_CREDENTIALS": "Geçersiz kimlik bilgileri."
+  },
+  "USER": {
+    "NOT_FOUND": "Kullanıcı bulunamadı."
   }
 }
