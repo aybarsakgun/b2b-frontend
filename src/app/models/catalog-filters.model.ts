@@ -1,5 +1,5 @@
 export class CatalogFiltersModel {
-  brands: number[];
-  models: number[];
-  category: number;
+  brands?: number[];
+  models?: number[];
+  category?: number;
 }

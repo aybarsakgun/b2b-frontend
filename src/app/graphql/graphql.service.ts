@@ -62,16 +62,16 @@ export abstract class GraphQLService {
 
   public subscriber<T>(
     observable: Observable<T>,
-    onNext: (data: T) => void,
-    onError: (data: ErrorResult) => void,
-    onComplete: () => void
+    onNext?: (data: T) => void,
+    onError?: (data: ErrorResult) => void,
+    onComplete?: () => void
   ): Observable<T> | void {
     observable.pipe(take(1)).subscribe((data) => {
-      return onNext(data);
+      return onNext && onNext(data);
     }, (error: ErrorResult) => {
-      return onError(error);
+      return onError && onError(error);
     }, () => {
-      return onComplete();
+      return onComplete && onComplete();
     });
   }
 }

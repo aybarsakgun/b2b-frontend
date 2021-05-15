@@ -1,0 +1,7 @@
+<div class="wt-pagination">
+  <ol>
+    <li *ngFor="let item of paginationContent" [class.active]="page === +item">
+      <a href="javascript:void(0);" (click)="onClick(+item)">{{ item }}</a>
+    </li>
+  </ol>
+</div>

@@ -27,6 +27,8 @@
     "REMEMBER_ME": "Remember me",
     "FORGOT_PASSWORD": "Forgot password?",
     "LOGGING_IN": "Logging in...",
-    "REGISTER": "Register"
+    "REGISTER": "Register",
+    "BRAND": "Brand",
+    "PRICE_RANGE": "Price Range"
   }
 }
