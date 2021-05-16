@@ -11,16 +11,45 @@ import {NotFoundComponent} from './layouts/not-found/not-found.component';
 import {AuthState} from './store/states/auth/auth.state';
 import {GraphQLModule} from './graphql/graphql.module';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
-import {NgxsRouterPluginModule} from '@ngxs/router-plugin';
+import {NgxsRouterPluginModule, RouterStateSerializer} from '@ngxs/router-plugin';
 import {environment} from '../environments/environment';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SharedModule} from './shared/shared.module';
+import {Params, RouterStateSnapshot} from '@angular/router';
+import {SettingState} from './store/states/setting/setting.state';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
+}
+
+export interface RouterStateParams {
+  url: string;
+  params: Params;
+  queryParams: Params;
+}
+
+export class CustomRouterStateSerializer implements RouterStateSerializer<RouterStateParams> {
+  serialize(routerState: RouterStateSnapshot): RouterStateParams {
+    const {
+      url,
+      root: {
+        queryParams
+      }
+    } = routerState;
+
+    let {root: route} = routerState;
+
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+
+    const {params} = route;
+
+    return {url, params, queryParams};
+  }
 }
 
 @NgModule({
@@ -38,7 +67,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BrowserAnimationsModule,
     SharedModule,
     GraphQLModule,
-    NgxsModule.forRoot([AuthState], {
+    NgxsModule.forRoot([AuthState, SettingState], {
       developmentMode: !environment.production
     }),
     NgxsReduxDevtoolsPluginModule.forRoot({
@@ -53,6 +82,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
     })
   ],
+  providers: [{
+      provide: RouterStateSerializer,
+      useClass: CustomRouterStateSerializer
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -31,10 +31,6 @@ export const PRODUCT_LIST_QUERY = gql`
           width
           height
           weight
-          product {
-            id
-            name
-          }
           prices {
             id
             value
@@ -42,31 +38,15 @@ export const PRODUCT_LIST_QUERY = gql`
             priceOrder
           }
         }
-        categories {
-          id
-          name
-          description
-          metaTitle
-          metaDescription
-          metaKeyword
-          seo
-          # parent {
-          #   id
-          #   parent{id,parent{id,parent{id,parent{id}}}}
-          # }
-          # children {
-          #   id
-          #   name
-          #   children {
-          #     id
-          #     name
-          #     children {
-          #       id
-          #       name
-          #     }
-          #   }
-          # }
-        }
+#        categories {
+#          id
+#          name
+#          description
+#          metaTitle
+#          metaDescription
+#          metaKeyword
+#          seo
+#        }
         warehouses {
           id
           quantity

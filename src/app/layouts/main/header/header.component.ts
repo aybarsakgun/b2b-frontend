@@ -20,6 +20,9 @@ export class HeaderComponent {
   }
 
   logout(): void {
-    this.store.dispatch([new Auth.Logout(), new Navigate([this.store.selectSnapshot(RouterState.url)])]);
+    const routerState = this.store.selectSnapshot(RouterState);
+    const url = routerState.state.url.split('?')[0];
+    const queryParams = routerState.state.queryParams;
+    this.store.dispatch([new Auth.Logout(), new Navigate([url], queryParams)]);
   }
 }
