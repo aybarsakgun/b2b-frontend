@@ -16,7 +16,7 @@ export class AuthorizedGuard implements CanActivate {
   }
 
   public canActivate(): Observable<boolean> {
-    const firstPageIsLogin = of(false);
+    const firstPageIsLogin = of(true);
     return this.store.select(AUTH_STATE_TOKEN).pipe(
       filter((authState) => !authState.loading),
       take(1),
