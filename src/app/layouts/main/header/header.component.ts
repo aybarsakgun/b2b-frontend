@@ -3,6 +3,7 @@ import {Select, Store} from '@ngxs/store';
 import {AuthState} from '../../../store/states/auth/auth.state';
 import {Observable} from 'rxjs';
 import {Auth} from '../../../store/actions/auth/auth.action';
+import {Navigate, RouterState} from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +20,6 @@ export class HeaderComponent {
   }
 
   logout(): void {
-    this.store.dispatch(new Auth.Logout());
+    this.store.dispatch([new Auth.Logout(), new Navigate([this.store.selectSnapshot(RouterState.url)])]);
   }
 }

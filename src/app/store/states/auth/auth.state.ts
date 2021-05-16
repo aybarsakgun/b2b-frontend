@@ -59,10 +59,10 @@ export class AuthState {
     return this.authService.login(payload).pipe(
       take(1),
       tap((result) => {
-        return dispatch(new Auth.LoginSuccess({
+        return dispatch([new Auth.LoginSuccess({
           accessToken: result.token,
           user: result.user
-        }));
+        }), new Navigate(['/'])]);
       }),
       catchError((error: ErrorResult) => {
         dispatch(new Auth.LoginFailed(error.map((err) => (err.message))));
@@ -83,7 +83,7 @@ export class AuthState {
   }
 
   @Action(Auth.LoginSuccess)
-  loginSuccess({setState, dispatch}: StateContext<AuthStateModel>, {payload}: Auth.LoginSuccess): void {
+  loginSuccess({setState}: StateContext<AuthStateModel>, {payload}: Auth.LoginSuccess): void {
     localStorage.setItem(JWT_TOKEN_NAME, payload.accessToken);
     setState({
       accessToken: payload.accessToken,
@@ -91,11 +91,10 @@ export class AuthState {
       loading: false,
       errors: []
     });
-    dispatch(new Navigate(['/']));
   }
 
   @Action(Auth.Logout)
-  logout({setState, dispatch}: StateContext<AuthStateModel>): void {
+  logout({setState}: StateContext<AuthStateModel>): void {
     localStorage.removeItem(JWT_TOKEN_NAME);
     setState({
       accessToken: null,
@@ -103,7 +102,6 @@ export class AuthState {
       loading: false,
       errors: []
     });
-    dispatch(new Navigate([this.store.selectSnapshot(RouterState.url)]));
   }
 
   @Action(Auth.CurrentUser)
