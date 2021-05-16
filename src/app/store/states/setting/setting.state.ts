@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Action, Selector, State, StateContext, StateToken, Store} from '@ngxs/store';
+import {Action, Selector, State, StateContext, StateToken} from '@ngxs/store';
 import {catchError, take, tap} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import {ErrorResult} from '../../../graphql/results/error.result';
-import {SettingModel} from '../../../models/setting/setting.model';
 import {Setting} from '../../actions/setting/setting.action';
 import {SettingResults} from '../../../graphql/results/setting/setting.results';
 import {SettingService} from '../../../shared/services/setting.service';
@@ -37,8 +36,7 @@ export class SettingState {
   }
 
   constructor(
-    private settingService: SettingService,
-    private store: Store
+    private settingService: SettingService
   ) {
   }
 
