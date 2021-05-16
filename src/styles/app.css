@@ -1008,8 +1008,8 @@ footer .footer-content a {
   width: 50px;
   height: 48px;
   background-image: -webkit-linear-gradient(30deg, transparent 50%, #007bff 51%);
-  background-image: -ms-linear-gradient(30deg, transparent 50%, #007bff 51%);
-  background-image: -moz-linear-gradient(30deg, transparent 50%, #007bff 51%);
+  /*background-image: -ms-linear-gradient(30deg, transparent 50%, #007bff 51%);*/
+  /*background-image: -moz-linear-gradient(30deg, transparent 50%, #007bff 51%);*/
 }
 
 .mega-menu > li:first-child > a > i {

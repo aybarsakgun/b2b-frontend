@@ -4,6 +4,7 @@ import {AUTH_STATE_TOKEN} from './store/states/auth/auth.state';
 import {Auth} from './store/actions/auth/auth.action';
 import {filter, take, tap} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
+import {Setting} from './store/actions/setting/setting.action';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent {
     private store: Store,
     private translateService: TranslateService
   ) {
+    this.store.dispatch(new Setting.Fetch());
     this.store.select(AUTH_STATE_TOKEN).pipe(
       take(1),
       filter((authState) => !authState.loading),
