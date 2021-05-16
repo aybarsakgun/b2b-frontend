@@ -29,7 +29,8 @@
     "LOGGING_IN": "Logging in...",
     "REGISTER": "Register",
     "BRAND": "Brand",
-    "PRICE_RANGE": "Price Range"
+    "PRICE_RANGE": "Price Range",
+    "UNAUTHORIZED": "You have no authority."
   },
   "AUTH": {
     "INVALID_CREDENTIALS": "Invalid credentials."
