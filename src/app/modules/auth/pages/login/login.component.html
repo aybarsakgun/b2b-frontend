@@ -18,12 +18,12 @@
         <div class="alert alert-danger mb-3 align-items-center" *ngIf="errors.length">
           <img src="assets/images/svg/alert.svg" width="30px" class="mr-3"/>
           <ng-container *ngFor="let error of errors; let isLast = last;">
-            {{ error }}
+            {{ error | translate }}
             <ng-container *ngIf="!isLast"><br></ng-container>
           </ng-container>
         </div>
         </ng-container>
-        <form class="login-box" [formGroup]="form" (keydown.enter)="login()">
+        <form class="login-box" [formGroup]="form">
           <div class="floating-inputs mb-4">
             <div class="floating-placeholder has-icon" [class.floating-placeholder-float]="form.get('username').value">
               <img src="assets/images/svg/avatar.svg" width="30px" class="icon">

@@ -29,6 +29,13 @@
     "LOGGING_IN": "Giriş yapılıyor...",
     "REGISTER": "Kayıt Ol",
     "BRAND": "Marka",
-    "PRICE_RANGE": "Fiyat Aralığı"
+    "PRICE_RANGE": "Fiyat Aralığı",
+    "UNAUTHORIZED": "Yetkiniz yok."
+  },
+  "AUTH": {
+    "INVALID_CREDENTIALS": "Geçersiz kimlik bilgileri."
+  },
+  "USER": {
+    "NOT_FOUND": "Kullanıcı bulunamadı."
   }
 }

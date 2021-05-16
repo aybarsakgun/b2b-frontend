@@ -121,7 +121,7 @@ export class AuthState {
         });
       }),
       catchError((error: ErrorResult) => {
-        dispatch(new Auth.LoginFailed(error.map((err) => (err.message))));
+        dispatch(new Auth.LoginFailed([]/*error.map((err) => (err.message))*/));
         return throwError(error);
       })
     );
