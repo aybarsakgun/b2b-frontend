@@ -10,6 +10,7 @@ import {ProductModel} from '../../../../models/product/product.model';
 import {BrandModel} from '../../../../models/product/brand.model';
 import {ModelModel} from '../../../../models/product/model.model';
 import {CategoryModel} from '../../../../models/product/category.model';
+import {BaseState} from '../../../../store/states/base/base.state';
 
 @Component({
   selector: 'app-product-list',
@@ -35,6 +36,9 @@ export class ProductListComponent implements OnInit {
     [model: string]: boolean;
   } = {};
 
+  parentCategory: CategoryModel = null;
+  flattenCategories: CategoryModel[] = [];
+
   constructor(
     private productService: ProductService,
     private activatedRoute: ActivatedRoute,
@@ -44,6 +48,16 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const flatCategories = (categories: CategoryModel[], flattenArray: CategoryModel[] = []) => {
+      categories.forEach((category) => {
+        flattenArray.push(category);
+        if (category.children.length) {
+          return flatCategories(category.children, flattenArray);
+        }
+      });
+      return flattenArray;
+    };
+    this.flattenCategories = flatCategories(this.store.selectSnapshot(BaseState.categories));
     this.activatedRoute.queryParams.subscribe((queryParams) => {
       console.log(queryParams);
       this.paginationOptions = {
@@ -66,6 +80,12 @@ export class ProductListComponent implements OnInit {
         this.productListResult = {...result};
         this.setBrands();
         this.setModels();
+        // TODO: Improvements are needed.
+        this.parentCategory = result.categories?.[0]?.parent;
+        // const findParentCategory = this.flattenCategories.find(category => category.id === this.catalogFilterOptions?.category)?.parent;
+        // this.parentCategory = findParentCategory;
+        // console.log(findParentCategory);
+
         this.changeDetectorRef.detectChanges();
       }
     );

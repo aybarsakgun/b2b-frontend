@@ -1,14 +1,9 @@
 import {gql} from '@apollo/client/core';
 import {categoryFragment} from '../../fragments/category/category.fragment';
 
-export const CORE_QUERY = gql`
+export const FETCH_BASES_QUERY = gql`
   ${categoryFragment}
-  query core{
-    settings{
-      id
-      key
-      value
-    }
+  query fetchBases{
     currencies{
       id
       code
@@ -36,6 +31,16 @@ export const CORE_QUERY = gql`
           }
         }
       }
+    }
+  }
+`;
+
+export const FETCH_SETTINGS_QUERY = gql`
+  query fetchSettings{
+    settings{
+      id
+      key
+      value
     }
   }
 `;

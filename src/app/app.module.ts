@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './layouts/main/header/header.component';
 import {FooterComponent} from './layouts/main/footer/footer.component';
@@ -20,9 +20,18 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SharedModule} from './shared/shared.module';
 import {Params, RouterStateSnapshot} from '@angular/router';
 import {SettingState} from './store/states/setting/setting.state';
+import {HomeComponent} from './modules/home/home.component';
+import {InitializerService} from './shared/services/initializer.service';
+import {BaseState} from './store/states/base/base.state';
 
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
+}
+
+function InitializerFactory(initializerService: InitializerService): () => Promise<any> {
+  return (): Promise<any> => {
+    return initializerService.init();
+  };
 }
 
 export interface RouterStateParams {
@@ -59,6 +68,7 @@ export class CustomRouterStateSerializer implements RouterStateSerializer<Router
     MainComponent,
     HeaderComponent,
     FooterComponent,
+    HomeComponent,
     NotFoundComponent
   ],
   imports: [
@@ -67,7 +77,7 @@ export class CustomRouterStateSerializer implements RouterStateSerializer<Router
     BrowserAnimationsModule,
     SharedModule,
     GraphQLModule,
-    NgxsModule.forRoot([AuthState, SettingState], {
+    NgxsModule.forRoot([AuthState, SettingState, BaseState], {
       developmentMode: !environment.production
     }),
     NgxsReduxDevtoolsPluginModule.forRoot({
@@ -83,8 +93,13 @@ export class CustomRouterStateSerializer implements RouterStateSerializer<Router
     })
   ],
   providers: [{
-      provide: RouterStateSerializer,
-      useClass: CustomRouterStateSerializer
+    provide: APP_INITIALIZER,
+    useFactory: InitializerFactory,
+    multi: true,
+    deps: [InitializerService]
+  }, {
+    provide: RouterStateSerializer,
+    useClass: CustomRouterStateSerializer
   }],
   bootstrap: [AppComponent]
 })

@@ -28,7 +28,6 @@ export class AuthorizedGuard implements CanActivate {
           filter((settingState) => !settingState.loading),
           take(1),
           map((state) => {
-            console.log(state);
             return !+state.settings['firstPageIsLogin'];
           })
         );

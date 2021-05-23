@@ -1,7 +1,7 @@
 import {Apollo} from 'apollo-angular';
 import {Observable, of, throwError} from 'rxjs';
 import {DocumentNode} from 'graphql';
-import {switchMap, take} from 'rxjs/operators';
+import {catchError, switchMap, take} from 'rxjs/operators';
 import {ErrorResult} from './results/error.result';
 
 export abstract class GraphQLService {
@@ -38,6 +38,13 @@ export abstract class GraphQLService {
     return new Observable((observer) => {
       gqlOperation.pipe(
         take(1),
+        catchError(() => {
+          return throwError([{
+            message: 'Network Error',
+            type: 'Network Error',
+            code: 500
+          }]);
+        }),
         switchMap(({data, errors}) => {
           if (errors) {
             return throwError(errors.map((error) => ({

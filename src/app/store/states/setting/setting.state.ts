@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Action, Selector, State, StateContext, StateToken} from '@ngxs/store';
 import {catchError, take, tap} from 'rxjs/operators';
-import {Observable, throwError} from 'rxjs';
 import {ErrorResult} from '../../../graphql/results/error.result';
 import {Setting} from '../../actions/setting/setting.action';
-import {SettingResults} from '../../../graphql/results/setting/setting.results';
-import {SettingService} from '../../../shared/services/setting.service';
+import {BaseService} from '../../../shared/services/base.service';
 
 export interface SettingStateModel {
-  settings: {};
+  settings: {
+    [settingKey: string]: string
+  };
   loading: boolean;
   errors: string[];
 }
@@ -36,16 +36,16 @@ export class SettingState {
   }
 
   constructor(
-    private settingService: SettingService
+    private baseService: BaseService
   ) {
   }
 
   @Action(Setting.Fetch)
-  fetch({patchState, dispatch}: StateContext<SettingStateModel>): Observable<SettingResults.FetchResult> {
+  fetch({patchState, dispatch}: StateContext<SettingStateModel>): any {
     patchState({
       loading: true
     });
-    return this.settingService.fetchSettings().pipe(
+    return this.baseService.fetchSettings().pipe(
       take(1),
       tap((result) => {
         return dispatch(new Setting.FetchSuccess(result.settings.reduce((map, obj) => {
@@ -54,16 +54,15 @@ export class SettingState {
         }, {})));
       }),
       catchError((error: ErrorResult) => {
-        dispatch(new Setting.FetchFailed(error.map((err) => (err.message))));
-        return throwError(error);
-      })
+        return dispatch(new Setting.FetchFailed(error.map((err) => (err.message))));
+      }),
     );
   }
 
   @Action(Setting.FetchFailed)
   fetchFailed({setState}: StateContext<SettingStateModel>, {errors}: Setting.FetchFailed): void {
     setState({
-      settings: {}, // Todo: fill with init settings
+      settings: {},
       loading: false,
       errors
     });

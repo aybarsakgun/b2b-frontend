@@ -10,5 +10,9 @@ export const categoryFragment = gql`
     metaKeyword
     seo
     order
+    parent{
+      id
+      name
+    }
   }
 `;

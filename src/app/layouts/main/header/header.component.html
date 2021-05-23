@@ -44,11 +44,7 @@
             <input type="text" class="form-control search-input" placeholder="{{ 'MAIN.SEARCH' | translate }}">
             <select name="category">
               <option value="all">{{ 'MAIN.ALL' | translate }}</option>
-<!--              {% for category in mainCategories %}-->
-<!--              <option {{ searchCategory== category.id ?-->
-<!--              'selected = "selected"' : '' }}-->
-<!--              value="{{ category.id }}">{{ category.name }}</option>-->
-<!--              {% endfor %}-->
+              <option *ngFor="let mainCategory of mainCategories$ | async" [value]="mainCategory">{{ mainCategory.name }}</option>
             </select>
             <button class="btn">
               <i class="flaticon-search-2"></i>
@@ -97,32 +93,30 @@
   </div>
 </div>
 
-<!--{% macro recursiveCategory(category, withUri) %}-->
-<!--<li class="{{ category.children|length ? 'flyout-right' }}">-->
-<!--  <a href="{{ withUri ? url('catalog_category', {'url': category.seo ~ '-c-' ~ category.id }) : '#' }}">{{ category.name }}</a>-->
+<ng-template #categoryTree let-category="category">
+  <li [class.flyout-right]="category.children.length">
+    <a href="javascript:void(0);" (click)="navigateToProductList(category)">{{ category.name }}</a>
+    <ul class="animated fadeIn" *ngIf="category.children.length">
+      <ng-template *ngFor="let childCategory of category.children"
+                   [ngTemplateOutlet]="categoryTree"
+                   [ngTemplateOutletContext]="{category: childCategory}"></ng-template>
+    </ul>
+  </li>
 
-<!--  {% if category.children|length %}-->
-<!--  <ul class="animated fadeIn">-->
-<!--    {% for child in category.children %}-->
-<!--    {{ _self.recursiveCategory(child, true) }}-->
-<!--    {% endfor %}-->
-<!--  </ul>-->
-<!--  {% endif %}-->
-<!--</li>-->
-<!--{% endmacro %}-->
+</ng-template>
 
 <div class="row m-0">
   <div class="mega-menu-container hidden-sm-down">
     <ul class="mega-menu">
       <li class="drop-down">
         <a href="javascript:void(0);"><i class="flaticon-menu pr-1"></i> {{ 'MAIN.CATEGORIES' | translate }}</a>
-<!--        {% if mainCategories %}-->
-<!--        <ul class="drop-down-ul animated fadeIn">-->
-<!--          {% for category in mainCategories %}-->
-<!--          {{ _self.recursiveCategory(category, true) }}-->
-<!--          {% endfor %}-->
-<!--        </ul>-->
-<!--        {% endif %}-->
+        <ng-container *ngIf="(mainCategories$ | async) as mainCategories">
+          <ul class="drop-down-ul animated fadeIn" *ngIf="mainCategories.length">
+            <ng-template *ngFor="let mainCategory of mainCategories"
+                         [ngTemplateOutlet]="categoryTree"
+                         [ngTemplateOutletContext]="{category: mainCategory}"></ng-template>
+          </ul>
+        </ng-container>
       </li>
       <li><a routerLink="product/list"><i class="ion-android-search"></i> {{ 'MAIN.PRICE_LIST' | translate }}</a></li>
       <li><a routerLink="auth/login"><i class="ion-ios-cart"></i> {{ 'MAIN.CART' | translate }}</a></li>
@@ -130,11 +124,9 @@
       <li><a><i class="ion-ios-briefcase"></i> {{ 'MAIN.ACCOUNT_STATEMENT' | translate }}</a></li>
       <li><a><i class="ion-card"></i> {{ 'MAIN.PAYMENT' | translate }}</a></li>
       <div class="slidingVertical d-lg-block d-none">
-<!--        {% for cr in currency.currencies %}-->
-<!--        {% if cr.exchangeRate > 1 %}-->
-<!--        <span>{{ cr.symbol }} {{ cr.exchangeRate | number_format(4) }}</span>-->
-<!--        {% endif %}-->
-<!--        {% endfor %}-->
+        <ng-container *ngFor="let currency of (currenciesWithoutMainCurrency$ | async) as currenciesWithoutMainCurrency">
+          <span [style]="{'animation-duration': (currenciesWithoutMainCurrency.length === 1 ? '2.5s' : '5s')}">{{ currency.symbol }} {{ currency.exchangeRate | number }}</span>
+        </ng-container>
       </div>
     </ul>
   </div>
