@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="col-md-3 col-sm-12 p-0">
-          <div class="menu-toggle d-md-none" id="toggleMenu">
+          <div class="menu-toggle d-md-none" (click)="toggleMobileMenu()">
             <span></span>
             <span></span>
             <span class="m-0"></span>
@@ -133,7 +133,7 @@
   <!--Mobile Menu-->
   <div class="accordion" id="accordionExample" role="tablist" aria-multiselectable="true">
     <ul class="wt-mobile-menu menu-items">
-      <li><a><i class="ion-android-search"></i> {{ 'MAIN.PRICE_LIST' | translate }}</a></li>
+      <li><a routerLink="product/list" (click)="toggleMobileMenu()"><i class="ion-android-search"></i> {{ 'MAIN.PRICE_LIST' | translate }}</a></li>
       <li><a><i class="ion-ios-cart"></i> {{ 'MAIN.CART' | translate }}</a></li>
       <li><a><i class="ion-clipboard"></i> {{ 'MAIN.ORDERS' | translate }}</a></li>
       <li><a><i class="ion-ios-briefcase"></i> {{ 'MAIN.ACCOUNT_STATEMENT' | translate }}</a></li>
