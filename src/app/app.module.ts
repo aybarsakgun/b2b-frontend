@@ -14,7 +14,6 @@ import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 import {NgxsRouterPluginModule, RouterStateSerializer} from '@ngxs/router-plugin';
 import {environment} from '../environments/environment';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SharedModule} from './shared/shared.module';
@@ -23,10 +22,7 @@ import {SettingState} from './store/states/setting/setting.state';
 import {HomeComponent} from './modules/home/home.component';
 import {InitializerService} from './shared/services/initializer.service';
 import {BaseState} from './store/states/base/base.state';
-
-function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
-}
+import {TranslationLoaderFactory} from './shared/loaders/translation.loader';
 
 function InitializerFactory(initializerService: InitializerService): () => Promise<any> {
   return (): Promise<any> => {
@@ -87,7 +83,7 @@ export class CustomRouterStateSerializer implements RouterStateSerializer<Router
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
+        useFactory: TranslationLoaderFactory,
         deps: [HttpClient],
       },
     })

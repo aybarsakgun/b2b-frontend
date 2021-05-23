@@ -8,13 +8,15 @@ import {Auth} from '../../store/actions/auth/auth.action';
 import {JWT_TOKEN_NAME} from '../../constants';
 import {Base} from '../../store/actions/base/base.action';
 import {BASE_STATE_TOKEN} from '../../store/states/base/base.state';
+import {TranslateService} from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InitializerService {
   constructor(
-    private store: Store
+    private store: Store,
+    private translateService: TranslateService
   ) {
   }
 
@@ -83,10 +85,14 @@ export class InitializerService {
   }
 
   async init(): Promise<any> {
+    this.translateService.addLangs(['en', 'tr']);
+    this.translateService.setDefaultLang('tr');
+    const browserLang = this.translateService.getBrowserLang();
     await Promise.all([
       await this.handleSettings(),
       await this.handleAuth(),
-      await this.handleBases()
+      await this.handleBases(),
+      await this.translateService.use(browserLang.match(/en|tr/) ? browserLang : 'tr').toPromise()
     ]);
   }
 }

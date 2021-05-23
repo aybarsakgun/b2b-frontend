@@ -28,6 +28,10 @@ export class HeaderComponent {
   ) {
   }
 
+  toggleMobileMenu(): void {
+    document.body.classList.toggle('slide-right');
+  }
+
   navigateToProductList(category: CategoryModel): void {
     this.store.dispatch(new Navigate(['product/list'], {
       page: 1,
