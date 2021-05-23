@@ -15,15 +15,31 @@
             <div class="box-body">
               <div class="filter-box">
                 <div class="item">
-                  <div class="accordion">
-                    <div class="panel panel-default" *ngFor="let category of productListResult.categories">
-                      <div class="panel-heading">
+                  <ng-container *ngIf="parentCategory else defaultCategoryListPanel">
+                    <ul>
+                      <li class="category-level-1">
+                        <a href="javascript:void(0);" class="category-link" (click)="onCategoryFilterChange(+parentCategory.id)">
+                          {{ parentCategory.name }}
+                        </a>
+                      </li>
+                      <li class="category-level-2" *ngFor="let category of productListResult.categories">
                         <a href="javascript:void(0);" class="category-link" (click)="onCategoryFilterChange(+category.id)"> {{ category.name }}
                           ({{ category.productCount }})
                         </a>
+                      </li>
+                    </ul>
+                  </ng-container>
+                  <ng-template #defaultCategoryListPanel>
+                    <div class="accordion">
+                      <div class="panel panel-default" *ngFor="let category of productListResult.categories">
+                        <div class="panel-heading">
+                          <a href="javascript:void(0);" class="category-link" (click)="onCategoryFilterChange(+category.id)"> {{ category.name }}
+                            ({{ category.productCount }})
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </ng-template>
                 </div>
               </div>
             </div>

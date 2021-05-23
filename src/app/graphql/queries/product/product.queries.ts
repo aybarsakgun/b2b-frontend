@@ -96,6 +96,10 @@ export const PRODUCT_LIST_QUERY = gql`
     categories(filters: $catalogFilters) {
       id
       name
+      parent{
+        id
+        name
+      }
       # children {
       #   id
       #   name

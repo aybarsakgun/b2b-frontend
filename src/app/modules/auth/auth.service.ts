@@ -3,8 +3,8 @@ import {Apollo} from 'apollo-angular';
 import {GraphQLService} from '../../graphql/graphql.service';
 import {Observable} from 'rxjs';
 import {AuthResults} from '../../graphql/results/auth/auth.results';
-import {AUTH_LOGIN_MUTATION} from '../../graphql/mutations/auth/auth.mutations';
-import {USER_CURRENT_USER_QUERY} from '../../graphql/queries/user/user.queries';
+import {LOGIN_MUTATION} from '../../graphql/mutations/auth/auth.mutations';
+import {CURRENT_USER_QUERY} from '../../graphql/queries/user/user.queries';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class AuthService extends GraphQLService {
     username: string;
     password: string;
   }): Observable<AuthResults.LoginResult> {
-    return this.execute<AuthResults.LoginResult>('mutation', AUTH_LOGIN_MUTATION, {
+    return this.execute<AuthResults.LoginResult>('mutation', LOGIN_MUTATION, {
       loginInput
     }, {
       responseKey: 'login'
@@ -28,7 +28,7 @@ export class AuthService extends GraphQLService {
   }
 
   currentUser(): Observable<AuthResults.CurrentUserResult> {
-    return this.execute<AuthResults.CurrentUserResult>('query', USER_CURRENT_USER_QUERY, null, {
+    return this.execute<AuthResults.CurrentUserResult>('query', CURRENT_USER_QUERY, null, {
       responseKey: 'currentUser'
     });
   }

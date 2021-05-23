@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
-import {Action, Selector, State, StateContext, StateToken, Store} from '@ngxs/store';
+import {Action, Selector, State, StateContext, StateToken} from '@ngxs/store';
 import {Auth} from '../../actions/auth/auth.action';
 import {AuthService} from '../../../modules/auth/auth.service';
 import {catchError, take, tap} from 'rxjs/operators';
-import {Observable, throwError} from 'rxjs';
+import {Observable} from 'rxjs';
 import {UserModel} from '../../../models/user/user.model';
 import {ErrorResult} from '../../../graphql/results/error.result';
 import {JWT_TOKEN_NAME} from '../../../constants';
 import {AuthResults} from '../../../graphql/results/auth/auth.results';
-import {Navigate, RouterState} from '@ngxs/router-plugin';
+import {Navigate} from '@ngxs/router-plugin';
 
 export interface AuthStateModel {
   accessToken: string;
@@ -46,13 +46,12 @@ export class AuthState {
   }
 
   constructor(
-    private authService: AuthService,
-    private store: Store
+    private authService: AuthService
   ) {
   }
 
   @Action(Auth.Login)
-  login({patchState, dispatch}: StateContext<AuthStateModel>, {payload}: Auth.Login): Observable<AuthResults.LoginResult> {
+  login({patchState, dispatch}: StateContext<AuthStateModel>, {payload}: Auth.Login): Observable<AuthResults.LoginResult | void> {
     patchState({
       loading: true
     });
@@ -65,8 +64,7 @@ export class AuthState {
         }), new Navigate(['/'])]);
       }),
       catchError((error: ErrorResult) => {
-        dispatch(new Auth.LoginFailed(error.map((err) => (err.message))));
-        return throwError(error);
+        return dispatch(new Auth.LoginFailed(error.map((err) => (err.message))));
       })
     );
   }
@@ -105,7 +103,7 @@ export class AuthState {
   }
 
   @Action(Auth.CurrentUser)
-  currentUser({dispatch, patchState}: StateContext<AuthStateModel>): Observable<AuthResults.CurrentUserResult> {
+  currentUser({dispatch, patchState}: StateContext<AuthStateModel>): Observable<AuthResults.CurrentUserResult | void> {
     patchState({
       loading: true
     });
@@ -119,8 +117,7 @@ export class AuthState {
         });
       }),
       catchError((error: ErrorResult) => {
-        dispatch(new Auth.LoginFailed([]/*error.map((err) => (err.message))*/));
-        return throwError(error);
+        return dispatch(new Auth.LoginFailed(error.map((err) => (err.message))));
       })
     );
   }
