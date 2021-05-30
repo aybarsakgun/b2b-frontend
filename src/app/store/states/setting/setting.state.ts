@@ -35,6 +35,13 @@ export class SettingState {
     return state.errors;
   }
 
+  @Selector()
+  static settings(state: SettingStateModel): {
+    [settingKey: string]: string
+  } {
+    return state.settings;
+  }
+
   constructor(
     private baseService: BaseService
   ) {

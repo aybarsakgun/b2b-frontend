@@ -18,7 +18,17 @@ export namespace Base {
 
     constructor(public payload: {
       currencies: CurrencyModel[],
+      activeCurrency: CurrencyModel,
       categories: CategoryModel[]
+    }) {
+    }
+  }
+
+  export class ChangeActiveCurrency {
+    static readonly type = '[Base] Change Active Currency';
+
+    constructor(public payload: {
+      currency: CurrencyModel
     }) {
     }
   }

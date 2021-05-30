@@ -155,10 +155,10 @@
 
                 </td>
                 <td>
-                  100TL
+                  <app-product-price [product]="product" [priceType]="'listPrice'"></app-product-price>
                 </td>
                 <td>
-                  10TL
+                  <app-product-price [product]="product" [priceType]="'defaultPrice'"></app-product-price>
                 </td>
                 <td>
                   {{ product.taxRate }}

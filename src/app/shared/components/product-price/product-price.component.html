@@ -1,0 +1,7 @@
+<ng-container *ngIf="{
+  settings: settings$ | async,
+  currencies: currencies$ | async,
+  activeCurrency: activeCurrency$ | async
+} as data">
+  {{ formatPrice(data.settings, data.currencies, data.activeCurrency) }}
+</ng-container>
