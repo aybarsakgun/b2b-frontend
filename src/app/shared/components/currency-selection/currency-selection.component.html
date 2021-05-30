@@ -1,0 +1,10 @@
+<div class="btn-group" (clickOutside)="currencySelectionPanelVisibility && toggleCurrencySelectionPanelVisibility()">
+  <button type="button" class="btn btn-link dropdown-toggle" (click)="toggleCurrencySelectionPanelVisibility()">
+    {{ (activeCurrency | async)?.code }}
+  </button>
+  <div class="dropdown-menu dropdown-menu-right d-block" *ngIf="currencySelectionPanelVisibility">
+    <button class="dropdown-item" type="button" *ngFor="let currency of currencyList | async" (click)="changeActiveCurrency(currency)">
+      {{ currency.code }}
+    </button>
+  </div>
+</div>

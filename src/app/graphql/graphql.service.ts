@@ -38,7 +38,14 @@ export abstract class GraphQLService {
     return new Observable((observer) => {
       gqlOperation.pipe(
         take(1),
-        catchError(() => {
+        catchError((error) => {
+          if (error.message.toLowerCase().includes('unauthorized')) {
+            return throwError([{
+              message: 'Unauthorized',
+              type: 'Unauthorized',
+              code: 401
+            }]);
+          }
           return throwError([{
             message: 'Network Error',
             type: 'Network Error',

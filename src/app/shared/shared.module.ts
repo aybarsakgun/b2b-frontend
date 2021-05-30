@@ -7,6 +7,8 @@ import {ClickOutsideDirective} from './directives/click-outside.directive';
 import {PaginationComponent} from './components/pagination/pagination.component';
 import {HttpClient} from '@angular/common/http';
 import {TranslationLoaderFactory} from './loaders/translation.loader';
+import {CurrencySelectionComponent} from './components/currency-selection/currency-selection.component';
+import {ProductPriceComponent} from './components/product-price/product-price.component';
 
 @NgModule({
   imports: [
@@ -22,16 +24,20 @@ import {TranslationLoaderFactory} from './loaders/translation.loader';
   ],
   declarations: [
     LanguageSelectionComponent,
+    CurrencySelectionComponent,
     ClickOutsideDirective,
-    PaginationComponent
+    PaginationComponent,
+    ProductPriceComponent
   ],
   exports: [
     CommonModule,
     ReactiveFormsModule,
     TranslateModule,
     LanguageSelectionComponent,
+    CurrencySelectionComponent,
     ClickOutsideDirective,
-    PaginationComponent
+    PaginationComponent,
+    ProductPriceComponent
   ]
 })
 export class SharedModule {

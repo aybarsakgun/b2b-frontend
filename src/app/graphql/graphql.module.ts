@@ -37,9 +37,9 @@ export function createApollo(httpLink: HttpLink, store: Store): ApolloClientOpti
     }
     if (networkError) {
       console.warn('networkError: ', networkError);
-      if (networkError['error'].errors && networkError['error'].errors.length) {
-        networkError.message = networkError['error'].errors.map(error => (error.message));
-      }
+      // if (networkError['error'].errors && networkError['error'].errors.length) {
+      //   networkError.message = networkError['error'].errors.map(error => (error.message));
+      // }
     }
   });
 
