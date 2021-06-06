@@ -8,7 +8,6 @@ import {UserModel} from '../../../models/user/user.model';
 import {ErrorResult} from '../../../graphql/results/error.result';
 import {JWT_TOKEN_NAME} from '../../../constants';
 import {AuthResults} from '../../../graphql/results/auth/auth.results';
-import {Navigate} from '@ngxs/router-plugin';
 
 export interface AuthStateModel {
   accessToken: string;
@@ -58,10 +57,10 @@ export class AuthState {
     return this.authService.login(payload).pipe(
       take(1),
       tap((result) => {
-        return dispatch([new Auth.LoginSuccess({
+        return dispatch(new Auth.LoginSuccess({
           accessToken: result.token,
           user: result.user
-        }), new Navigate(['/'])]);
+        }));
       }),
       catchError((error: ErrorResult) => {
         return dispatch(new Auth.LoginFailed(error.map((err) => (err.message))));

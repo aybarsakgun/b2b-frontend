@@ -15,13 +15,13 @@
     <div class="row mb-4">
       <div class="col-md-4 col-sm-6 col-xs-12 login-container">
         <ng-container *ngIf="(errors$ | async) as errors">
-        <div class="alert alert-danger mb-3 align-items-center" *ngIf="errors.length">
-          <img src="assets/images/svg/alert.svg" width="30px" class="mr-3"/>
-          <ng-container *ngFor="let error of errors; let isLast = last;">
-            {{ error | translate }}
-            <ng-container *ngIf="!isLast"><br></ng-container>
-          </ng-container>
-        </div>
+          <div class="alert alert-danger mb-3 align-items-center" *ngIf="errors.length">
+            <img src="assets/images/svg/alert.svg" width="30px" class="mr-3"/>
+            <ng-container *ngFor="let error of errors; let isLast = last;">
+              {{ error | translate }}
+              <ng-container *ngIf="!isLast"><br></ng-container>
+            </ng-container>
+          </div>
         </ng-container>
         <form class="login-box" [formGroup]="form">
           <div class="floating-inputs mb-4">
@@ -34,12 +34,15 @@
               <img src="assets/images/svg/padlock.svg" class="icon" width="30px">
               <label>{{ 'MAIN.PASSWORD' | translate }} *</label>
               <input type="password" formControlName="password" class="pr-5">
-              <svg version="1.1" class="eye" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+              <svg version="1.1" class="eye" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 512 512"
+                   xml:space="preserve">
                 <g>
                   <g>
                     <g>
-                      <path class="eye" d="M510,263.9c2.7-4.9,2.7-10.9,0-15.8C461.1,158.1,365.7,96.9,256,96.9S50.9,158.1,2,248.1c-2.7,4.9-2.7,10.9,0,15.8c48.9,90.1,144.3,151.2,254,151.2S461.1,353.9,510,263.9z M256,378c-67.4,0-122-54.6-122-122s54.6-122,122-122s122,54.6,122,122S323.4,378,256,378z"/>
-                      <path class="eye" d="M256,193.8c-5.1,0-10.1,0.6-14.9,1.8c4.9,5.7,7.8,13,7.8,21.1c0,17.8-14.4,32.3-32.3,32.3c-8.1,0-15.4-3-21.1-7.8c-1.2,4.8-1.8,9.8-1.8,14.9c0,34.3,27.8,62.2,62.2,62.2s62.2-27.8,62.2-62.2S290.3,193.8,256,193.8z"/>
+                      <path class="eye"
+                            d="M510,263.9c2.7-4.9,2.7-10.9,0-15.8C461.1,158.1,365.7,96.9,256,96.9S50.9,158.1,2,248.1c-2.7,4.9-2.7,10.9,0,15.8c48.9,90.1,144.3,151.2,254,151.2S461.1,353.9,510,263.9z M256,378c-67.4,0-122-54.6-122-122s54.6-122,122-122s122,54.6,122,122S323.4,378,256,378z"/>
+                      <path class="eye"
+                            d="M256,193.8c-5.1,0-10.1,0.6-14.9,1.8c4.9,5.7,7.8,13,7.8,21.1c0,17.8-14.4,32.3-32.3,32.3c-8.1,0-15.4-3-21.1-7.8c-1.2,4.8-1.8,9.8-1.8,14.9c0,34.3,27.8,62.2,62.2,62.2s62.2-27.8,62.2-62.2S290.3,193.8,256,193.8z"/>
                     </g>
                   </g>
                 </g>
@@ -54,8 +57,13 @@
             <a href="">{{ 'MAIN.FORGOT_PASSWORD' | translate }}</a>
           </div>
           <button class="btn btn-login btn-primary mb-3" (click)="login()">
-            <ng-container *ngIf="isLoading$ | async else normal">
-              {{ 'MAIN.LOGGING_IN' | translate }}
+            <ng-container *ngIf="{
+              isAuthLoading: isAuthLoading$ | async,
+              isBasesLoading: isBasesLoading$ | async
+            } as data">
+              <ng-container *ngIf="data.isAuthLoading || data.isBasesLoading else normal">
+                {{ 'MAIN.LOGGING_IN' | translate }}
+              </ng-container>
             </ng-container>
             <ng-template #normal>{{ 'MAIN.LOGIN' | translate }}</ng-template>
           </button>
