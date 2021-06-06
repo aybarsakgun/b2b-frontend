@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {CanActivate} from '@angular/router';
-import {Observable, of} from 'rxjs';
+import {combineLatest, Observable, of} from 'rxjs';
 import {filter, map, switchMap, take, tap} from 'rxjs/operators';
 import {Store} from '@ngxs/store';
 import {AUTH_STATE_TOKEN} from '../store/states/auth/auth.state';
 import {Navigate} from '@ngxs/router-plugin';
 import {SETTING_STATE_TOKEN} from '../store/states/setting/setting.state';
+import {BASE_STATE_TOKEN} from '../store/states/base/base.state';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,10 @@ export class AuthorizedGuard implements CanActivate {
   }
 
   public canActivate(): Observable<boolean> {
-    return this.store.select(AUTH_STATE_TOKEN).pipe(
-      filter((authState) => !authState.loading),
+    return combineLatest([this.store.select(AUTH_STATE_TOKEN), this.store.select(BASE_STATE_TOKEN)]).pipe(
+      filter(([authState, baseState]) => !authState.loading && !baseState.loading),
       take(1),
-      switchMap((authState) => {
+      switchMap(([authState]) => {
         if (authState.accessToken && authState.user) {
           return of(true);
         }
