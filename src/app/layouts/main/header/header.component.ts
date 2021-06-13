@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {AuthState} from '../../../store/states/auth/auth.state';
 import {Observable} from 'rxjs';
@@ -7,13 +7,18 @@ import {Navigate, RouterState} from '@ngxs/router-plugin';
 import {BaseState} from '../../../store/states/base/base.state';
 import {CategoryModel} from '../../../models/product/category.model';
 import {CurrencyModel} from '../../../models/currency/currency.model';
+import {Cart} from '../../../store/actions/cart/cart.action';
+import {take} from 'rxjs/operators';
+import {CartState} from '../../../store/states/cart/cart.state';
+import {CartModel} from '../../../models/cart/cart.model';
+import {ProductModel} from '../../../models/product/product.model';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @Select(AuthState.isAuthenticated)
   public isAuthenticated$: Observable<boolean>;
 
@@ -23,9 +28,16 @@ export class HeaderComponent {
   @Select(BaseState.currenciesWithoutMainCurrency)
   public currenciesWithoutMainCurrency$: Observable<CurrencyModel[]>;
 
+  @Select(CartState.items)
+  public cartItems$: Observable<CartModel[]>;
+
   constructor(
     private store: Store
   ) {
+  }
+
+  ngOnInit(): void {
+    this.isAuthenticated$.pipe(take(1)).subscribe((isAuthenticated) => isAuthenticated && this.store.dispatch(new Cart.Fetch()));
   }
 
   toggleMobileMenu(): void {
@@ -37,6 +49,14 @@ export class HeaderComponent {
       page: 1,
       category: category.id
     }));
+  }
+
+  cartRemoveProduct(product: ProductModel): void {
+    console.log(product);
+  }
+
+  cartClear(): void {
+    console.log('cartClear');
   }
 
   logout(): void {

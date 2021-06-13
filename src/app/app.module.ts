@@ -23,6 +23,7 @@ import {HomeComponent} from './modules/home/home.component';
 import {InitializerService} from './shared/services/initializer.service';
 import {BaseState} from './store/states/base/base.state';
 import {TranslationLoaderFactory} from './shared/loaders/translation.loader';
+import {CartState} from './store/states/cart/cart.state';
 
 function InitializerFactory(initializerService: InitializerService): () => Promise<any> {
   return (): Promise<any> => {
@@ -73,7 +74,7 @@ export class CustomRouterStateSerializer implements RouterStateSerializer<Router
     BrowserAnimationsModule,
     SharedModule,
     GraphQLModule,
-    NgxsModule.forRoot([AuthState, SettingState, BaseState], {
+    NgxsModule.forRoot([AuthState, SettingState, BaseState, CartState], {
       developmentMode: !environment.production
     }),
     NgxsReduxDevtoolsPluginModule.forRoot({
