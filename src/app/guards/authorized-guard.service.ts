@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CanActivate} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
 import {combineLatest, Observable, of} from 'rxjs';
 import {filter, map, switchMap, take, tap} from 'rxjs/operators';
 import {Store} from '@ngxs/store';
@@ -12,12 +12,16 @@ import {BASE_STATE_TOKEN} from '../store/states/base/base.state';
   providedIn: 'root'
 })
 export class AuthorizedGuard implements CanActivate {
+  mustAuthRoutes: string[] = [
+    '/cart'
+  ];
+
   constructor(
     private store: Store
   ) {
   }
 
-  public canActivate(): Observable<boolean> {
+  public canActivate(route: ActivatedRouteSnapshot, routeState: RouterStateSnapshot): Observable<boolean> {
     return combineLatest([this.store.select(AUTH_STATE_TOKEN), this.store.select(BASE_STATE_TOKEN)]).pipe(
       filter(([authState, baseState]) => !authState.loading && !baseState.loading),
       take(1),
@@ -33,7 +37,12 @@ export class AuthorizedGuard implements CanActivate {
           })
         );
       }),
-      tap((canActivate) => !canActivate && this.store.dispatch(new Navigate(['auth/login'])))
+      tap((canActivate) => {
+        if (!this.mustAuthRoutes.includes(routeState.url) && canActivate) {
+          return of(true);
+        }
+        return this.store.dispatch(new Navigate(['auth/login']));
+      })
     );
   }
 }
