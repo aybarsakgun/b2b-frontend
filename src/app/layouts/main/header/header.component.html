@@ -74,27 +74,33 @@
                   <a class="dropdown-item" (click)="logout()">{{ 'MAIN.LOGOUT' | translate }}</a>
                 </div>
               </div>
-              <div class="dropdown" *ngIf="cartItems$ | async as cartItems">
+              <div class="dropdown" *ngIf="{
+                cartItems: cartItems$ | async,
+                currencies: currencies$ | async,
+                activeCurrency: activeCurrency$ | async
+              } as data">
                 <a href="javascript:void(0);" class="ml-2 ml-md-4 dropdown-toggle">
-                  <span class="cart-num d-block">{{ cartItems.length }}</span>
+                  <span class="cart-num d-block">{{ data.cartItems.length }}</span>
                   <i class="flaticon-shopping-cart-line"></i>
                   <span class="d-lg-block">Sepet</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right mini-cart-content"
-                     *ngIf="cartItems.length else emptyCart">
+                     *ngIf="data.cartItems.length else emptyCart">
                   <div class="total-count">
-                    <span>{{ cartItems.length }} ÜRÜN</span>
+                    <span>{{ data.cartItems.length }} ÜRÜN</span>
                   </div>
                   <div class="cart-product-list">
                     <ul>
-                      <li class="item" *ngFor="let item of cartItems">
+                      <li class="item" *ngFor="let item of data.cartItems">
                         <div class="product-details">
                           <a href="#">{{ item.product?.name }}</a>
-                          <span class="quantity-price float-left">{{ item.quantity }} - <app-product-price
-                            [product]="item.product" [priceType]="'defaultPrice'"></app-product-price></span>
+                          <span class="quantity-price float-left">
+                            {{ item.quantity }} -
+                            <app-product-price [product]="item.product" [priceType]="'defaultPrice'"></app-product-price>
+                          </span>
                         </div>
                         <div class="product-image">
-                          <img src="">
+                          <app-product-image [src]="item.product.image" [size]="80" [alt]="item.product.name"></app-product-image>
                         </div>
                         <div class="product-delete">
                           <i class="ion-close-round" (click)="cartRemoveProduct(item.product)"></i>
@@ -103,8 +109,8 @@
                     </ul>
                   </div>
                   <div class="cart-total-price">
-                    <p class="m-0">TUTAR: <span class="float-right">{{ 'subTotal' }}</span></p>
-                    <p>KDV DAHİL: <span class="float-right">{{ 'total' }}</span></p>
+                    <p class="m-0">TUTAR: <span class="float-right">{{ cartTotal(data.cartItems, data.currencies, data.activeCurrency)?.subTotal }}</span></p>
+                    <p>KDV DAHİL: <span class="float-right">{{ cartTotal(data.cartItems, data.currencies, data.activeCurrency)?.total }}</span></p>
                     <div class="row">
                       <div class="col-6 pr-2">
                         <button type="button" (click)="cartClear()" class="btn btn-danger w-100">

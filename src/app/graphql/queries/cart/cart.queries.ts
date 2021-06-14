@@ -10,6 +10,7 @@ export const FETCH_CART_QUERY = gql`
         name
         defaultUnit
         currency
+        taxRate
         units {
           id
           value

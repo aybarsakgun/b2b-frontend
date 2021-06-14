@@ -137,7 +137,9 @@
             <tbody>
               <tr *ngFor="let product of productListResult.products.items">
                 <td class="p-0">
-                  <a href=""></a>
+                  <a href="">
+                    <app-product-image [src]="product.image" [size]="80" [alt]="product.name"></app-product-image>
+                  </a>
                 </td>
                 <td>
                   <a href="">{{ product.code }}</a>
