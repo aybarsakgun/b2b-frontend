@@ -9,6 +9,7 @@ import {HttpClient} from '@angular/common/http';
 import {TranslationLoaderFactory} from './loaders/translation.loader';
 import {CurrencySelectionComponent} from './components/currency-selection/currency-selection.component';
 import {ProductPriceComponent} from './components/product-price/product-price.component';
+import {ProductImageComponent} from './components/product-image/product-image.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import {ProductPriceComponent} from './components/product-price/product-price.co
     CurrencySelectionComponent,
     ClickOutsideDirective,
     PaginationComponent,
-    ProductPriceComponent
+    ProductPriceComponent,
+    ProductImageComponent
   ],
   exports: [
     CommonModule,
@@ -37,7 +39,8 @@ import {ProductPriceComponent} from './components/product-price/product-price.co
     CurrencySelectionComponent,
     ClickOutsideDirective,
     PaginationComponent,
-    ProductPriceComponent
+    ProductPriceComponent,
+    ProductImageComponent
   ]
 })
 export class SharedModule {
