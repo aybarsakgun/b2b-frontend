@@ -12,7 +12,6 @@ import {take} from 'rxjs/operators';
 import {CartState} from '../../../store/states/cart/cart.state';
 import {CartModel} from '../../../models/cart/cart.model';
 import {ProductModel} from '../../../models/product/product.model';
-import {calculateCartTotal} from '../../../utils/utils';
 
 @Component({
   selector: 'app-header',
@@ -28,12 +27,6 @@ export class HeaderComponent implements OnInit {
 
   @Select(BaseState.currenciesWithoutMainCurrency)
   public currenciesWithoutMainCurrency$: Observable<CurrencyModel[]>;
-
-  @Select(BaseState.currencies)
-  public currencies$: Observable<CurrencyModel[]>;
-
-  @Select(BaseState.activeCurrency)
-  public activeCurrency$: Observable<CurrencyModel>;
 
   @Select(CartState.items)
   public cartItems$: Observable<CartModel[]>;
@@ -64,15 +57,6 @@ export class HeaderComponent implements OnInit {
 
   cartClear(): void {
     console.log('cartClear');
-  }
-
-  cartTotal(cartItems: CartModel[], currencies: CurrencyModel[], activeCurrency: CurrencyModel): {
-    subTotal: string;
-    tax: string;
-    total: string;
-  } {
-    // TODO: It will be calculated in store.
-    return calculateCartTotal(cartItems, currencies, activeCurrency);
   }
 
   logout(): void {

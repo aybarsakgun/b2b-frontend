@@ -10,6 +10,7 @@ import {TranslationLoaderFactory} from './loaders/translation.loader';
 import {CurrencySelectionComponent} from './components/currency-selection/currency-selection.component';
 import {ProductPriceComponent} from './components/product-price/product-price.component';
 import {ProductImageComponent} from './components/product-image/product-image.component';
+import {CartPriceComponent} from './components/cart-price/cart-price.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {ProductImageComponent} from './components/product-image/product-image.co
     ClickOutsideDirective,
     PaginationComponent,
     ProductPriceComponent,
-    ProductImageComponent
+    ProductImageComponent,
+    CartPriceComponent
   ],
   exports: [
     CommonModule,
@@ -40,7 +42,8 @@ import {ProductImageComponent} from './components/product-image/product-image.co
     ClickOutsideDirective,
     PaginationComponent,
     ProductPriceComponent,
-    ProductImageComponent
+    ProductImageComponent,
+    CartPriceComponent
   ]
 })
 export class SharedModule {

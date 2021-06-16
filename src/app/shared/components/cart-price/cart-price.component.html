@@ -1,0 +1,6 @@
+<ng-container *ngIf="{
+  currencies: currencies$ | async,
+  activeCurrency: activeCurrency$ | async
+} as data">
+  {{ calculateCartTotal(data.currencies, data.activeCurrency) }}
+</ng-container>
