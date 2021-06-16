@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 import {CurrencyModel} from '../../../models/currency/currency.model';
 
 @Component({
-  selector: 'app-product-price',
+  selector: 'app-product-price[product]',
   templateUrl: './product-price.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
