@@ -7,6 +7,8 @@ import {setContext} from '@apollo/client/link/context';
 import {GRAPHQL_URL} from '../constants';
 import {Store} from '@ngxs/store';
 import {onError} from '@apollo/client/link/error';
+import {Auth} from '../store/actions/auth/auth.action';
+import {Navigate} from '@ngxs/router-plugin';
 
 export function createApollo(httpLink: HttpLink, store: Store): ApolloClientOptions<any> {
   const basic = setContext(() => ({
@@ -30,10 +32,18 @@ export function createApollo(httpLink: HttpLink, store: Store): ApolloClientOpti
 
   const errorLink = onError(({graphQLErrors, networkError}) => {
     if (graphQLErrors) {
+      let unauthorizedError = false;
       graphQLErrors.forEach((error) => {
+        console.warn(error);
         const errorMessage: string = error.message;
         console.warn(`graphqlError: ${errorMessage}`);
+        if (error.extensions.exception.status === 401) {
+          unauthorizedError = true;
+        }
       });
+      if (unauthorizedError) {
+        store.dispatch([new Auth.Logout(), new Navigate(['/auth/login'])]);
+      }
     }
     if (networkError) {
       console.warn('networkError: ', networkError);
