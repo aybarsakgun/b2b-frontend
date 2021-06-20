@@ -99,7 +99,7 @@
                           <app-product-image [src]="item.product.image" [size]="80" [alt]="item.product.name"></app-product-image>
                         </div>
                         <div class="product-delete">
-                          <i class="ion-close-round" (click)="cartRemoveProduct(item.product)"></i>
+                          <i class="ion-close-round" (click)="cartRemoveProduct(item.product, item.id)"></i>
                         </div>
                       </li>
                     </ul>

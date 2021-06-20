@@ -1,0 +1,24 @@
+<ng-container *ngIf="{
+  settings: settings$ | async,
+  cartOperation: cartOperation$ | async,
+  successLabelVisibility: successLabelVisibility$ | async
+} as data">
+  <ng-container *ngIf="!!+data.settings?.cartStockControl && product.quantity <= 0 else addToCartButton">
+    <button type="button" class="btn btn-primary add-to-cart-btn btn-outline-danger">
+      Stokta Yok
+    </button>
+  </ng-container>
+  <ng-template #addToCartButton>
+    <button
+      type="button"
+      class="btn btn-primary add-to-cart-btn"
+      [class.success]="data.cartOperation?.id === product.id && data.cartOperation?.type === cartOperationType.ADD_ITEM_SUCCESS && data.successLabelVisibility"
+      [class.loading]="data.cartOperation?.id === product.id && data.cartOperation?.type === cartOperationType.ADD_ITEM"
+      [disabled]="data.cartOperation?.id === product.id && data.cartOperation?.type === cartOperationType.ADD_ITEM && data.cartOperation?.loading"
+      (click)="add()">
+      <div class="add-to-cart-tx">Ekle</div>
+      <div class="add-to-cart-tx-sc">Eklendi</div>
+      <div class="add-to-cart-ldr"></div>
+    </button>
+  </ng-template>
+</ng-container>
