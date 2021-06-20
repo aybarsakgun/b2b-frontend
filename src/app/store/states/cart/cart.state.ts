@@ -118,7 +118,9 @@ export class CartState {
     }).pipe(
       take(1),
       tap((result) => {
-        return dispatch(new Cart.AddItemSuccess(result));
+        setTimeout(() => {
+          return dispatch(new Cart.AddItemSuccess(result));
+        }, 2000);
       }),
       catchError((error: ErrorResult) => {
         return dispatch(new Cart.AddItemFailed(error.map((err) => (err.message))));
