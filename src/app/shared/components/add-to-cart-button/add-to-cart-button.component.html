@@ -14,7 +14,7 @@
       class="btn btn-primary add-to-cart-btn"
       [class.success]="data.cartOperation?.id === product.id && data.cartOperation?.type === cartOperationType.ADD_ITEM_SUCCESS && data.successLabelVisibility"
       [class.loading]="data.cartOperation?.id === product.id && data.cartOperation?.type === cartOperationType.ADD_ITEM"
-      [disabled]="data.cartOperation?.id === product.id && data.cartOperation?.type === cartOperationType.ADD_ITEM && data.cartOperation?.loading"
+      [disabled]="data.cartOperation?.id === product.id && ((data.cartOperation?.type === cartOperationType.ADD_ITEM && data.cartOperation?.loading) || data.successLabelVisibility)"
       (click)="add()">
       <div class="add-to-cart-tx">Ekle</div>
       <div class="add-to-cart-tx-sc">Eklendi</div>

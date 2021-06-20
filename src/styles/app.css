@@ -605,8 +605,8 @@ body.slide-right {
 }
 
 .add-to-cart-btn.success {
-  background: #46af62;
-  border-color: #46af62;
+  background: #46af62!important;
+  border-color: #46af62!important;
 }
 
 .add-to-cart-btn .add-to-cart-tx {
