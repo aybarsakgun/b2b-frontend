@@ -70,7 +70,8 @@ export namespace Cart {
     static readonly type = CartOperationType.REMOVE_ITEM;
 
     constructor(public payload: {
-      product: ProductModel
+      product: ProductModel,
+      cartId: number
     }) {
     }
   }

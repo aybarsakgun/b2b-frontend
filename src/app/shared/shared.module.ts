@@ -11,6 +11,7 @@ import {CurrencySelectionComponent} from './components/currency-selection/curren
 import {ProductPriceComponent} from './components/product-price/product-price.component';
 import {ProductImageComponent} from './components/product-image/product-image.component';
 import {CartPriceComponent} from './components/cart-price/cart-price.component';
+import {AddToCartButtonComponent} from './components/add-to-cart-button/add-to-cart-button.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import {CartPriceComponent} from './components/cart-price/cart-price.component';
     PaginationComponent,
     ProductPriceComponent,
     ProductImageComponent,
-    CartPriceComponent
+    CartPriceComponent,
+    AddToCartButtonComponent
   ],
   exports: [
     CommonModule,
@@ -43,7 +45,8 @@ import {CartPriceComponent} from './components/cart-price/cart-price.component';
     PaginationComponent,
     ProductPriceComponent,
     ProductImageComponent,
-    CartPriceComponent
+    CartPriceComponent,
+    AddToCartButtonComponent
   ]
 })
 export class SharedModule {

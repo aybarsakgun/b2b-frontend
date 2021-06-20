@@ -51,8 +51,8 @@ export class HeaderComponent implements OnInit {
     }));
   }
 
-  cartRemoveProduct(product: ProductModel): void {
-    console.log(product);
+  cartRemoveProduct(product: ProductModel, cartId: number): void {
+    this.store.dispatch(new Cart.RemoveItem({product, cartId}));
   }
 
   cartClear(): void {
