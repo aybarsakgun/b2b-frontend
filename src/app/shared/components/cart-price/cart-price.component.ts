@@ -28,7 +28,7 @@ export class CartPriceComponent {
 
     this.cartItems.forEach(item => {
       const vat: number = (100 + item.product.taxRate) / 100;
-      const productPrice: ProductPriceModel = (item.productUnit.prices || []).find(price => price.priceOrder === item.productUnit.defaultPriceOrder);
+      const productPrice: ProductPriceModel = item.productUnit.defaultPrice;
       const usedCurrency: CurrencyModel = currencies.find(currency => currency.code === productPrice?.currency);
       const calculatedPrice: number = (+productPrice?.value * +usedCurrency.exchangeRate) / +activeCurrency.exchangeRate;
 

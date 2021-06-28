@@ -1,4 +1,4 @@
-<div class="lang-button btn-group" (clickOutside)="languageSelectionPanelVisibility && toggleLanguageSelectionPanelVisibility()">
+<div class="lang-button btn-group" (appClickOutside)="languageSelectionPanelVisibility && toggleLanguageSelectionPanelVisibility()">
   <button type="button" id="dropdownMenuButton" class="btn btn-link dropdown-toggle" (click)="toggleLanguageSelectionPanelVisibility()">
     <img src="assets/images/svg/{{ activeLanguage }}.svg" width="18px" class="mr-1">{{ ('MAIN.' + languageTranslationKeys[activeLanguage])  | translate }}
   </button>

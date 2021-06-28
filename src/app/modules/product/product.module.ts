@@ -3,6 +3,7 @@ import {ProductListComponent} from './pages/product-list/product-list.component'
 import {ProductRoutingModule} from './product-routing.module';
 import {ProductService} from './product.service';
 import {SharedModule} from '../../shared/shared.module';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   imports: [
     ProductRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ],
   providers: [ProductService]
 })

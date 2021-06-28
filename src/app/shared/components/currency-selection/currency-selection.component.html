@@ -1,4 +1,4 @@
-<div class="btn-group" (clickOutside)="currencySelectionPanelVisibility && toggleCurrencySelectionPanelVisibility()">
+<div class="btn-group" (appClickOutside)="currencySelectionPanelVisibility && toggleCurrencySelectionPanelVisibility()">
   <button type="button" class="btn btn-link dropdown-toggle" (click)="toggleCurrencySelectionPanelVisibility()">
     {{ (activeCurrency | async)?.code }}
   </button>

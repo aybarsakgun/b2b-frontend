@@ -24,18 +24,22 @@ export const PRODUCT_LIST_QUERY = gql`
           id
           value
           barcode
-          defaultPriceOrder
-          listPriceOrder
           multiplier
           length
           width
           height
           weight
-          prices {
+          defaultPrice {
             id
             value
-            currency
             priceOrder
+            currency
+          }
+          listPrice {
+            id
+            value
+            priceOrder
+            currency
           }
         }
 #        categories {
