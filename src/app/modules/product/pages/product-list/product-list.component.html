@@ -71,10 +71,10 @@
                 <h5>Fiyat Aralığı</h5>
                 <div class="item mb-3 mt-3">
                   <div class="range-input">
-                    <input type="text" class="form-control" placeholder="En az">
+                    <input type="text" class="form-control" placeholder="En az" [(ngModel)]="priceRange.min">
                     <span>-</span>
-                    <input type="text" class="form-control" placeholder="En çok">
-                    <button type="button" class="btn btn-primary">
+                    <input type="text" class="form-control" placeholder="En çok" [(ngModel)]="priceRange.max">
+                    <button type="button" class="btn btn-primary" (click)="filterByPriceRange()">
                       <i class="ion-chevron-right"></i>
                     </button>
                   </div>

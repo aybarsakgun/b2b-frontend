@@ -9,7 +9,7 @@ export function findDefaultUnit(product: ProductModel): ProductUnitModel {
 
 export function findPriceWithType(product: ProductModel, type: 'defaultPrice' | 'listPrice'): ProductPriceModel {
   const defaultUnit: ProductUnitModel = findDefaultUnit(product);
-  return defaultUnit ? (defaultUnit.prices || []).find(price => price.priceOrder === defaultUnit[type + 'Order']) : null;
+  return defaultUnit ? defaultUnit[type] : null;
 }
 
 export function priceFormat(price: number, currency: CurrencyModel): string {

@@ -13,9 +13,13 @@ export const cartFragment = gql`
       units {
         id
         value
-        defaultPriceOrder
-        listPriceOrder
-        prices {
+        defaultPrice {
+          id
+          value
+          priceOrder
+          currency
+        }
+        listPrice {
           id
           value
           priceOrder
@@ -26,9 +30,13 @@ export const cartFragment = gql`
     productUnit {
       id
       value
-      defaultPriceOrder
-      listPriceOrder
-      prices {
+      defaultPrice {
+        id
+        value
+        priceOrder
+        currency
+      }
+      listPrice {
         id
         value
         priceOrder

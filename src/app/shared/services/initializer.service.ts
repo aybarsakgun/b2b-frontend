@@ -21,7 +21,6 @@ export class InitializerService {
   }
 
   async handleSettings(): Promise<any> {
-    console.log('handleSettings');
     return new Promise<any>((resolve, reject) => {
       this.store.dispatch(new Setting.Fetch());
       this.store.select(SETTING_STATE_TOKEN).pipe(
@@ -61,10 +60,7 @@ export class InitializerService {
     return new Promise<any>((resolve, reject) => {
       const isAuthenticated = this.store.selectSnapshot(AuthState.isAuthenticated);
       const {firstPageIsLogin} = this.store.selectSnapshot(SETTING_STATE_TOKEN).settings;
-      console.log(isAuthenticated);
-      console.log(firstPageIsLogin);
       if (!isAuthenticated && !!+firstPageIsLogin) {
-        console.log('not needed to bases');
         return resolve();
       }
       this.store.dispatch(new Base.Fetch());
@@ -72,12 +68,9 @@ export class InitializerService {
         filter(baseState => !baseState.loading),
         take(1)
       ).subscribe(baseState => {
-        console.log('handleBases', baseState);
         if (baseState.errors.length) {
-          console.log('handleBases Rejected');
           return reject(baseState.errors);
         } else {
-          console.log('handleBases Resolved');
           return resolve();
         }
       });

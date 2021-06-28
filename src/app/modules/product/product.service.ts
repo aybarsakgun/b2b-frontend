@@ -15,7 +15,10 @@ export class ProductService extends GraphQLService {
     super(apollo);
   }
 
-  productList(pagination?: PaginationModel, catalogFilters?: CatalogFiltersModel): Observable<ProductResults.ProductListResult> {
+  productList(
+    pagination?: PaginationModel,
+    catalogFilters?: CatalogFiltersModel
+  ): Observable<ProductResults.ProductListResult> {
     return this.execute('query', PRODUCT_LIST_QUERY, {
       pagination,
       catalogFilters

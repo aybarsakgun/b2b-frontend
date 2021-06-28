@@ -11,6 +11,7 @@ import {BrandModel} from '../../../../models/product/brand.model';
 import {ModelModel} from '../../../../models/product/model.model';
 import {CategoryModel} from '../../../../models/product/category.model';
 import {BaseState} from '../../../../store/states/base/base.state';
+import {SettingState} from '../../../../store/states/setting/setting.state';
 
 @Component({
   selector: 'app-product-list',
@@ -35,6 +36,14 @@ export class ProductListComponent implements OnInit {
   models: {
     [model: string]: boolean;
   } = {};
+
+  priceRange: {
+    min: string,
+    max: string
+  } = {
+    min: null,
+    max: null
+  };
 
   parentCategory: CategoryModel = null;
   flattenCategories: CategoryModel[] = [];
@@ -67,7 +76,13 @@ export class ProductListComponent implements OnInit {
       this.catalogFilterOptions = {
         brands: queryParams.brands?.split(',').map(brandId => +brandId) || [],
         models: queryParams.models?.split(',').map(modelId => +modelId) || [],
-        category: queryParams.category || null
+        category: queryParams.category || null,
+        priceRange: queryParams.price ? {
+          currency: this.store.selectSnapshot(BaseState.activeCurrency).name,
+          vatIncluded: !!+this.store.selectSnapshot(SettingState.settings)['productsWithKdv'],
+          min: queryParams.price?.split(':')[0] ?? null,
+          max: queryParams.price?.split(':')[1] ?? null
+        } : null
       };
       this.fetchProductList();
     });
@@ -148,10 +163,33 @@ export class ProductListComponent implements OnInit {
     }));
   }
 
+  filterByPriceRange(): void {
+    this.catalogFilterOptions.priceRange = {
+      ...this.catalogFilterOptions.priceRange,
+      max: this.priceRange.max ?? null,
+      min: this.priceRange.min ?? null
+    };
+    this.store.dispatch(new Navigate(['product/list'], {
+      page: 1,
+      ...this.normalizeOptions()
+    }));
+  }
+
   normalizeOptions(): any {
     const options: any = {...this.catalogFilterOptions};
     options.brands = options.brands.join(',');
     options.models = options.models.join(',');
+    let priceRange = '';
+    if (options.priceRange?.min) {
+      priceRange += options.priceRange.min;
+    }
+    if (options.priceRange?.max) {
+      priceRange += priceRange.length ? ':' + options.priceRange.max : '0:' + options.priceRange.max;
+    }
+    if (priceRange) {
+      options.price = priceRange;
+      delete options.priceRange;
+    }
     return Object.keys(options)
       .filter((k) => options[k])
       .reduce((a, k) => ({...a, [k]: options[k]}), {});
