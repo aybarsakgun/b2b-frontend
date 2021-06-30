@@ -51,7 +51,7 @@
                 <ng-container *ngIf="productListResult.brands.length">
                   <h5>{{ 'MAIN.BRAND' | translate }}</h5>
                   <div class="item">
-                    <label class="b2b-checkbox" *ngFor="let brand of productListResult.brands">
+                    <label class="b2b-checkbox" *ngFor="let brand of productListResult.brands | productFilterOptionSortByCheckedFirst: brands">
                       <input class="brand-checkbox" type="checkbox" [checked]="brands[brand.id]" (change)="onBrandFilterChange(+brand.id)">{{ brand.name }}
                       ({{ brand.productCount }})
                       <span></span>
@@ -61,7 +61,7 @@
                 <ng-container *ngIf="productListResult.models.length">
                   <h5>MODEL</h5>
                   <div class="item">
-                    <label class="b2b-checkbox" *ngFor="let model of productListResult.models">
+                    <label class="b2b-checkbox" *ngFor="let model of productListResult.models | productFilterOptionSortByCheckedFirst: models">
                       <input class="brand-checkbox" type="checkbox" [checked]="models[model.id]" (change)="onModelFilterChange(+model.id)">{{ model.name }}
                       ({{ model.productCount }})
                       <span></span>
