@@ -37,14 +37,6 @@ export class ProductListComponent implements OnInit {
     [model: string]: boolean;
   } = {};
 
-  priceRange: {
-    min: string,
-    max: string
-  } = {
-    min: null,
-    max: null
-  };
-
   parentCategory: CategoryModel = null;
   flattenCategories: CategoryModel[] = [];
 
@@ -77,12 +69,12 @@ export class ProductListComponent implements OnInit {
         brands: queryParams.brands?.split(',').map(brandId => +brandId) || [],
         models: queryParams.models?.split(',').map(modelId => +modelId) || [],
         category: queryParams.category || null,
-        priceRange: queryParams.price ? {
+        priceRange: {
           currency: this.store.selectSnapshot(BaseState.activeCurrency).name,
           vatIncluded: !!+this.store.selectSnapshot(SettingState.settings)['productsWithKdv'],
           min: queryParams.price?.split(':')[0] ?? null,
           max: queryParams.price?.split(':')[1] ?? null
-        } : null
+        }
       };
       this.fetchProductList();
     });
@@ -164,11 +156,6 @@ export class ProductListComponent implements OnInit {
   }
 
   filterByPriceRange(): void {
-    this.catalogFilterOptions.priceRange = {
-      ...this.catalogFilterOptions.priceRange,
-      max: this.priceRange.max ?? null,
-      min: this.priceRange.min ?? null
-    };
     this.store.dispatch(new Navigate(['product/list'], {
       page: 1,
       ...this.normalizeOptions()
@@ -188,8 +175,8 @@ export class ProductListComponent implements OnInit {
     }
     if (priceRange) {
       options.price = priceRange;
-      delete options.priceRange;
     }
+    delete options.priceRange;
     return Object.keys(options)
       .filter((k) => options[k])
       .reduce((a, k) => ({...a, [k]: options[k]}), {});
