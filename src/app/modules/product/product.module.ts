@@ -4,10 +4,12 @@ import {ProductRoutingModule} from './product-routing.module';
 import {ProductService} from './product.service';
 import {SharedModule} from '../../shared/shared.module';
 import {FormsModule} from '@angular/forms';
+import {ProductFilterOptionSorterPipe} from './pipes/product-filter-option-sorter.pipe';
 
 @NgModule({
   declarations: [
-    ProductListComponent
+    ProductListComponent,
+    ProductFilterOptionSorterPipe
   ],
   imports: [
     ProductRoutingModule,
