@@ -40,13 +40,13 @@
       <div class="row">
         <div class="col-md-9 col-sm-12 p-0 pr-md-3 pt-2 pt-md-0">
           <div class="search">
-            <input type="text" class="form-control search-input" placeholder="{{ 'MAIN.SEARCH' | translate }}">
-            <select name="category">
-              <option value="all">{{ 'MAIN.ALL' | translate }}</option>
+            <input type="text" class="form-control search-input" [(ngModel)]="searchTerm" (keyup.enter)="searchProduct()" placeholder="{{ 'MAIN.SEARCH' | translate }}">
+            <select [(ngModel)]="searchCategory">
+              <option [value]="null">{{ 'MAIN.ALL' | translate }}</option>
               <option *ngFor="let mainCategory of mainCategories$ | async"
-                      [value]="mainCategory">{{ mainCategory.name }}</option>
+                      [value]="mainCategory.id">{{ mainCategory.name }}</option>
             </select>
-            <button class="btn">
+            <button class="btn" (click)="searchProduct()">
               <i class="flaticon-search-2"></i>
             </button>
           </div>

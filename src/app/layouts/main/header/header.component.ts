@@ -31,6 +31,9 @@ export class HeaderComponent implements OnInit {
   @Select(CartState.items)
   public cartItems$: Observable<CartModel[]>;
 
+  searchCategory: number = null;
+  searchTerm: string = null;
+
   constructor(
     private store: Store
   ) {
@@ -57,6 +60,18 @@ export class HeaderComponent implements OnInit {
 
   cartClear(): void {
     console.log('cartClear');
+  }
+
+  searchProduct(): void {
+    this.store.dispatch(new Navigate(['product/list'], {
+      page: 1,
+      ...(this.searchCategory ? {
+        category: this.searchCategory
+      } : undefined),
+      ...(this.searchTerm ? {
+        search: this.searchTerm
+      } : undefined)
+    }));
   }
 
   logout(): void {

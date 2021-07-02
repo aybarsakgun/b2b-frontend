@@ -5,4 +5,5 @@ export class CatalogFiltersModel {
   models?: number[];
   category?: number;
   priceRange?: PriceRangeModel;
+  searchTerm?: string;
 }

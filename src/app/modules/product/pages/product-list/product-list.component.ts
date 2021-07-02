@@ -74,7 +74,8 @@ export class ProductListComponent implements OnInit {
           vatIncluded: !!+this.store.selectSnapshot(SettingState.settings)['productsWithKdv'],
           min: queryParams.price?.split(':')[0] ?? null,
           max: queryParams.price?.split(':')[1] ?? null
-        }
+        },
+        searchTerm: queryParams.search || null
       };
       this.fetchProductList();
     });
@@ -176,7 +177,9 @@ export class ProductListComponent implements OnInit {
     if (priceRange) {
       options.price = priceRange;
     }
+    options.search = options.searchTerm;
     delete options.priceRange;
+    delete options.searchTerm;
     return Object.keys(options)
       .filter((k) => options[k])
       .reduce((a, k) => ({...a, [k]: options[k]}), {});
