@@ -24,6 +24,7 @@ import {InitializerService} from './shared/services/initializer.service';
 import {BaseState} from './store/states/base/base.state';
 import {TranslationLoaderFactory} from './shared/loaders/translation.loader';
 import {CartState} from './store/states/cart/cart.state';
+import {FormsModule} from '@angular/forms';
 
 function InitializerFactory(initializerService: InitializerService): () => Promise<any> {
   return (): Promise<any> => {
@@ -87,7 +88,8 @@ export class CustomRouterStateSerializer implements RouterStateSerializer<Router
         useFactory: TranslationLoaderFactory,
         deps: [HttpClient],
       },
-    })
+    }),
+    FormsModule
   ],
   providers: [{
     provide: APP_INITIALIZER,
