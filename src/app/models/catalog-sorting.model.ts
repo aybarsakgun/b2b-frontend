@@ -51,10 +51,10 @@ export const CatalogSortingFields: {
 };
 
 export class CatalogSortingModel {
-  field: CatalogSortingField | string;
+  field: CatalogSortingField;
   order: 'ASC' | 'DESC';
 
-  constructor(field: CatalogSortingField | string, order: 'ASC' | 'DESC') {
+  constructor(field: CatalogSortingField, order: 'ASC' | 'DESC') {
     this.field = field;
     this.order = order;
   }
