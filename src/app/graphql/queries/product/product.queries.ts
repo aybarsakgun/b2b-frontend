@@ -1,8 +1,8 @@
 import {gql} from '@apollo/client/core';
 
 export const PRODUCT_LIST_QUERY = gql`
-  query productList($pagination: PaginationInput, $catalogFilters: CatalogFiltersInput){
-    products(pagination: $pagination, filters: $catalogFilters) {
+  query productList($pagination: PaginationInput, $catalogFilters: CatalogFiltersInput, $catalogSorting: CatalogSortingInput){
+    products(pagination: $pagination, filters: $catalogFilters, sorting: $catalogSorting) {
       total
       totalPage
       page

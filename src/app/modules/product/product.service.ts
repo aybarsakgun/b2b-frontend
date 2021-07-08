@@ -6,6 +6,7 @@ import {CatalogFiltersModel} from '../../models/catalog-filters.model';
 import {PRODUCT_LIST_QUERY} from '../../graphql/queries/product/product.queries';
 import {Observable} from 'rxjs';
 import {ProductResults} from '../../graphql/results/product/product.results';
+import {CatalogSortingModel} from '../../models/catalog-sorting.model';
 
 @Injectable()
 export class ProductService extends GraphQLService {
@@ -17,11 +18,13 @@ export class ProductService extends GraphQLService {
 
   productList(
     pagination?: PaginationModel,
-    catalogFilters?: CatalogFiltersModel
+    catalogFilters?: CatalogFiltersModel,
+    catalogSorting?: CatalogSortingModel
   ): Observable<ProductResults.ProductListResult> {
     return this.execute('query', PRODUCT_LIST_QUERY, {
       pagination,
-      catalogFilters
+      catalogFilters,
+      catalogSorting
     });
   }
 }

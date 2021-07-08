@@ -12,6 +12,7 @@ import {ModelModel} from '../../../../models/product/model.model';
 import {CategoryModel} from '../../../../models/product/category.model';
 import {BaseState} from '../../../../store/states/base/base.state';
 import {SettingState} from '../../../../store/states/setting/setting.state';
+import {CatalogSortingFields, CatalogSortingModel} from '../../../../models/catalog-sorting.model';
 
 @Component({
   selector: 'app-product-list',
@@ -21,6 +22,10 @@ import {SettingState} from '../../../../store/states/setting/setting.state';
 export class ProductListComponent implements OnInit {
   paginationOptions: PaginationModel = null;
   catalogFilterOptions: CatalogFiltersModel = null;
+
+  catalogSortingFields = CatalogSortingFields;
+  activeCatalogSorting = 'name';
+  sorterPanelVisibility = false;
 
   productListResult: {
     products: PaginatedModel<ProductModel>,
@@ -77,13 +82,18 @@ export class ProductListComponent implements OnInit {
         },
         searchTerm: queryParams.search || null
       };
+      this.activeCatalogSorting = queryParams?.sort || 'name';
       this.fetchProductList();
     });
   }
 
   fetchProductList(): void {
     this.productService.subscriber(
-      this.productService.productList(this.paginationOptions, this.catalogFilterOptions),
+      this.productService.productList(
+        this.paginationOptions,
+        this.catalogFilterOptions,
+        new CatalogSortingModel(this.catalogSortingFields[this.activeCatalogSorting].field, this.activeCatalogSorting.startsWith('-') ? 'DESC' : 'ASC')
+      ),
       (result) => {
         this.productListResult = {...result};
         this.setBrands();
@@ -163,8 +173,20 @@ export class ProductListComponent implements OnInit {
     }));
   }
 
+  toggleSorterPanelVisibility(): void {
+    this.sorterPanelVisibility = !this.sorterPanelVisibility;
+  }
+
+  changeSort(sorting: string): void {
+    this.activeCatalogSorting = sorting;
+    this.store.dispatch(new Navigate(['product/list'], {
+      page: 1,
+      ...this.normalizeOptions()
+    }));
+  }
+
   normalizeOptions(): any {
-    const options: any = {...this.catalogFilterOptions};
+    const options: any = {...this.catalogFilterOptions, ...{sort: this.activeCatalogSorting}};
     options.brands = options.brands.join(',');
     options.models = options.models.join(',');
     let priceRange = '';
