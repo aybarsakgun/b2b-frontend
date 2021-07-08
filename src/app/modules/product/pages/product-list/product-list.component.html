@@ -91,17 +91,17 @@
           <p class="m-0">{{ productListResult.products.total }} ürün bulundu.</p>
         </div>
         <div class="col-6">
-          <div class="sort-by-row">
+          <div class="sort-by-row" (appClickOutside)="sorterPanelVisibility && toggleSorterPanelVisibility()" (click)="toggleSorterPanelVisibility()">
             <span class="hidden-sm-down sort-by">Sırala:</span>
             <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button"
-                      id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                      aria-expanded="false">
-                Ürün Adı A-Z
+              <button class="btn btn-secondary dropdown-toggle" type="button">
+                {{ catalogSortingFields[activeCatalogSorting].translate | translate }}
               </button>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="/search?sort=name">Ürün Adı A-Z</a>
-                <a class="dropdown-item" href="/search?sort=-name">Ürün Adı Z-A</a>
+              <div class="dropdown-menu dropdown-menu-right d-block" *ngIf="sorterPanelVisibility">
+                <a class="dropdown-item"
+                   *ngFor="let field of catalogSortingFields | keyvalue: null"
+                   (click)="changeSort(field.key)">
+                  {{ field.value.translate | translate }}</a>
               </div>
             </div>
           </div>

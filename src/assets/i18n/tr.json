@@ -37,5 +37,13 @@
   },
   "USER": {
     "NOT_FOUND": "Kullanıcı bulunamadı."
-  }
+  },
+  "BY_NAME_A_Z": "Ürün adı A-Z",
+  "BY_NAME_Z_A": "Ürün adı Z-A",
+  "INCREASING_BY_PRICE": "Fiyata göre artan",
+  "DECREASING_BY_PRICE": "Fiyata göre azalan",
+  "INCREASING_BY_QUANTITY": "Stoğa göre artan",
+  "DECREASING_BY_QUANTITY": "Stoğa göre azalan",
+  "BY_BRAND_A_Z": "Marka A-Z",
+  "BY_BRAND_Z_A": "Marka Z-A"
 }

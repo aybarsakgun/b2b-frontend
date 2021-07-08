@@ -37,5 +37,13 @@
   },
   "USER": {
     "NOT_FOUND": "User not found."
-  }
+  },
+  "BY_NAME_A_Z": "By name A-Z",
+  "BY_NAME_Z_A": "By name Z-A",
+  "INCREASING_BY_PRICE": "Increasing by price",
+  "DECREASING_BY_PRICE": "Decreasing by price",
+  "INCREASING_BY_QUANTITY": "Increasing by quantity",
+  "DECREASING_BY_QUANTITY": "Decreasing by quantity",
+  "BY_BRAND_A_Z": "By brand A-Z",
+  "BY_BRAND_Z_A": "By brand Z-A"
 }
