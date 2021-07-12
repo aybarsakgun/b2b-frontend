@@ -70,6 +70,7 @@ export class ProductListComponent implements OnInit {
         page: +queryParams?.page || 1,
         limit: 20
       };
+      const priceRange = queryParams.price ? queryParams.price.split(':') : null;
       this.catalogFilterOptions = {
         brands: queryParams.brands?.split(',').map(brandId => +brandId) || [],
         models: queryParams.models?.split(',').map(modelId => +modelId) || [],
@@ -77,8 +78,8 @@ export class ProductListComponent implements OnInit {
         priceRange: {
           currency: this.store.selectSnapshot(BaseState.activeCurrency).name,
           vatIncluded: !!+this.store.selectSnapshot(SettingState.settings)['productsWithKdv'],
-          min: queryParams.price?.split(':')[0] ?? null,
-          max: queryParams.price?.split(':')[1] ?? null
+          min: priceRange && priceRange[0] !== 'null' ? priceRange[0] : null,
+          max: priceRange && priceRange[1] !== 'null' ? priceRange[1] : null
         },
         searchTerm: queryParams.search || null
       };
@@ -189,15 +190,9 @@ export class ProductListComponent implements OnInit {
     const options: any = {...this.catalogFilterOptions, ...{sort: this.activeCatalogSorting}};
     options.brands = options.brands.join(',');
     options.models = options.models.join(',');
-    let priceRange = '';
-    if (options.priceRange?.min) {
-      priceRange += options.priceRange.min;
-    }
-    if (options.priceRange?.max) {
-      priceRange += priceRange.length ? ':' + options.priceRange.max : '0:' + options.priceRange.max;
-    }
-    if (priceRange) {
-      options.price = priceRange;
+    if (options.priceRange) {
+      options.price = (options.priceRange.min && options.priceRange.min !== 'null' ? options.priceRange.min : 'null') +
+        ':' + (options.priceRange.max && options.priceRange.max !== 'null' ? options.priceRange.max : 'null');
     }
     options.search = options.searchTerm;
     delete options.priceRange;
